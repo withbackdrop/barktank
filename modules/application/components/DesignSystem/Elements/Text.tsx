@@ -9,7 +9,20 @@ interface Text {
   tag?: 'span' | 'div' | 'p';
   fontFamily?: 'sans' | 'mono';
   textAlign?: 'left' | 'center' | 'right';
-  color?: 'default' | 'white' | 'red-500' | 'gray-400' | 'gray-600' | 'yellow-900';
+  color?:
+    | 'default'
+    | 'white'
+    | 'red-500'
+    | 'gray-100'
+    | 'gray-200'
+    | 'gray-300'
+    | 'gray-400'
+    | 'gray-500'
+    | 'gray-600'
+    | 'gray-700'
+    | 'gray-800'
+    | 'gray-900'
+    | 'yellow-900';
   fontWeight?: 'light' | 'normal' | 'medium' | 'semibold' | 'bold';
   lineClamp?: 'none' | 1 | 2 | 3 | 4;
 }
@@ -27,7 +40,7 @@ const Text = forwardRef<any, Text>(
       fontFamily = 'sans',
       lineClamp = 'none',
     }: Text,
-    ref
+    ref,
   ) => {
     const classNamesComputed = classNames({
       'font-mono': fontFamily === 'mono',
@@ -60,8 +73,15 @@ const Text = forwardRef<any, Text>(
       'font-bold': fontWeight === 'bold',
 
       'text-pink-600': color === 'red-500',
+      'text-gray-100': color === 'gray-100',
+      'text-gray-200': color === 'gray-200',
+      'text-gray-300': color === 'gray-300',
       'text-gray-400': color === 'gray-400',
+      'text-gray-500': color === 'gray-500',
       'text-gray-600': color === 'gray-600',
+      'text-gray-700': color === 'gray-700',
+      'text-gray-800': color === 'gray-800',
+      'text-gray-900': color === 'gray-900',
       'text-yellow-900': color === 'yellow-900',
       'text-gray-900 dark:text-white': color === 'default',
       'text-white dark:text-gray-900': color === 'white',
@@ -78,7 +98,7 @@ const Text = forwardRef<any, Text>(
         {children}
       </Tag>
     );
-  }
+  },
 );
 
 export default Text;

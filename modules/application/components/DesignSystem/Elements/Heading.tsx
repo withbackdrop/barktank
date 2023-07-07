@@ -20,7 +20,7 @@ const Heading = ({
   size = 'm',
 }: Heading) => {
   const classNamesComputed = classNames({
-    'font-semibold': true,
+    'font-bold': true,
 
     'font-mono': fontFamily === 'mono',
     'font-sans': fontFamily === 'sans',

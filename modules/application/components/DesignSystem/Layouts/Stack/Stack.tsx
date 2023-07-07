@@ -7,10 +7,11 @@ import Item from './subcomponents/Item';
 interface Stack {
   children: any;
   spacing?: 'none' | 'xxs' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl' | 'xxxl';
+  alignItems?: 'left' | 'center' | 'right';
   showDivider?: boolean;
 }
 
-const Stack = ({ children, spacing = 'm', showDivider = false }: Stack) => {
+const Stack = ({ children, spacing = 'm', showDivider = false, alignItems = 'left' }: Stack) => {
   const items = findChildrenByRole(children, 'Stack.Item');
   if (!items) {
     return null;
@@ -30,9 +31,20 @@ const Stack = ({ children, spacing = 'm', showDivider = false }: Stack) => {
 
   return children ? (
     <div className={stackClassNames}>
-      {items.map((item: any) => (
-        <div key={`${item.toString()}_${item.key}`}>{item}</div>
-      ))}
+      {items.map((item: any) => {
+        const { alignItems: itemAlignItems } = item.props;
+        const stackItemClassNames = classNames({
+          'flex flex-col': true,
+          'items-center': itemAlignItems ? itemAlignItems === 'center' : alignItems === 'center',
+          'items-start': itemAlignItems ? itemAlignItems === 'left' : alignItems === 'left',
+          'flex flex-col items-end': itemAlignItems ? itemAlignItems === 'right' : alignItems === 'right',
+        });
+        return (
+          <div key={`${item.toString()}_${item.key}`} className={stackItemClassNames}>
+            {item}
+          </div>
+        );
+      })}
     </div>
   ) : null;
 };
