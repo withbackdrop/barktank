@@ -27,7 +27,6 @@
     "framer-motion": "^10.12.18",
     "is-url-superb": "^6.1.0",
     "js-cookie": "^3.0.5",
-    "langchain": "^0.0.104",
     "next": "^13.4.9",
     "numeral": "^2.0.6",
     "pluralize": "^8.0.0",
@@ -40,7 +39,19 @@
     "slugify": "^1.6.6",
     "swr": "^2.2.0",
     "tippy.js": "^6.3.7",
-    "yup": "^1.1.1"
+    "yup": "^1.1.1",
+    "@dqbd/tiktoken": "^1.0.7",
+    "@pinecone-database/pinecone": "^0.1.6",
+    "bottleneck": "^2.19.5",
+    "cpx": "^1.5.0",
+    "csv-parse": "^5.3.10",
+    "d3-dsv": "^2.0.0",
+    "dotenv": "^16.0.3",
+    "extract-json-from-string": "^1.0.1",
+    "hnswlib-node": "^1.4.2",
+    "langchain": "^0.0.103",
+    "youtube-transcript": "^1.0.6",
+    "zod": "^3.21.4"
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.19.1",
