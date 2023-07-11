@@ -48,7 +48,6 @@ const CreateProjectForm = ({ onCreated }: { onCreated: (string) => any }) => {
 
           onCreated(doc.id);
         } catch (error: any) {
-          console.log(error);
           toast.error('Project could not be saved.');
         }
       }}
