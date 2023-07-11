@@ -2,6 +2,7 @@ import { QueryConstraint, WhereFilterOp } from '@firebase/firestore';
 import {
   getFirestore,
   doc,
+  addDoc,
   getDoc,
   updateDoc,
   setDoc,
@@ -85,8 +86,9 @@ export async function createFirestoreCollectionDocumentById(collectionName: stri
 }
 
 export async function createFirestoreCollectionDocument(collectionName: string, data: DocumentData) {
-  const ref = doc(collection(db, collectionName));
-  await setDoc(ref, {
+  const ref = collection(db, collectionName);
+
+  return addDoc(ref, {
     ...data,
     updatedAt: Date.now(),
     createdAt: Date.now(),

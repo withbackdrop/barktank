@@ -32,7 +32,7 @@ const validationSchema = yup.object().shape({
     .required('Enter a YouTube URL'),
 });
 
-const CreateProjectForm = ({ onCreated }: { onCreated: () => any }) => {
+const CreateProjectForm = ({ onCreated }: { onCreated: (string) => any }) => {
   const { user } = useSessionContext();
 
   return (
@@ -42,13 +42,13 @@ const CreateProjectForm = ({ onCreated }: { onCreated: () => any }) => {
           const transcriptService = new TranscriptInternalApiService(true);
           const transcript = await transcriptService.getTranscriptForYoutubeUrl(youtubeUrl);
 
-          await createProject(user.uid, name, description, youtubeUrl, transcript);
+          const doc = await createProject(user.uid, name, description, youtubeUrl, transcript);
 
           toast.success(`Project created!`);
 
-          onCreated();
+          onCreated(doc.id);
         } catch (error: any) {
-          console.log('error', error);
+          console.log(error);
           toast.error('Project could not be saved.');
         }
       }}

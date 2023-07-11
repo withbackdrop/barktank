@@ -67,6 +67,10 @@ export function getUrlPrivacy(): string {
   return '/privacy';
 }
 
+export function getUrlProject(projectId: string): string {
+  return `/project/${projectId}`;
+}
+
 export function getIdFromSlug(slug: string): string | null {
   if (!slug) {
     return null;
