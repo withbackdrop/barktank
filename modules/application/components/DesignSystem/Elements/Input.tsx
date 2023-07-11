@@ -48,7 +48,7 @@ const Input = forwardRef<HTMLInputElement, Input>(
     const inputClassNames = classNames(
       'px-3 w-full text-gray-900 bg-transparent placeholder-gray-400 dark:placeholder-zinc-500 rounded-xl focus:outline-none dark:text-gray-50',
       {
-        'border-2 border-gray-300': theme === 'default',
+        'border-1 border-gray-300': theme === 'default',
         'border-0 pl-0 focus:ring-transparent': theme === 'bare',
         'focus:ring-transparent dark:border-zinc-600 focus:border-yellow-400 dark:focus:border-zinc-500':
           status !== 'invalid' && theme === 'default',
@@ -68,7 +68,7 @@ const Input = forwardRef<HTMLInputElement, Input>(
     const [inputValue, setInputValue] = useState(value);
 
     return (
-      <div className="relative flex grow flex-col">
+      <div className="relative flex w-full grow flex-col">
         <input
           defaultValue={defaultValue}
           readOnly={readOnly}

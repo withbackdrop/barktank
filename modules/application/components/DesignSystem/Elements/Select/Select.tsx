@@ -24,13 +24,13 @@ const Select = ({
   onBlur,
 }: SelectInterface) => {
   const selectClassNames = classNames(
-    'w-full bg-white dark:bg-zinc-850 font-mono border-gray-200 text-gray-900 dark:text-gray-50 placeholder-gray-400 dark:placeholder-zinc-500 font-medium rounded-lg border focus:outline-none',
+    'w-full bg-white dark:bg-zinc-850 font-mono border-gray-300 text-gray-900 dark:text-gray-50 placeholder-gray-400 dark:placeholder-zinc-500 font-medium rounded-lg border focus:outline-none',
     {
-      'focus:ring-transparent dark:border-zinc-600 focus:border-zinc-200 dark:focus:border-zinc-500':
+      'focus:ring-transparent dark:border-zinc-600 focus:border-yellow-400 dark:focus:border-zinc-500':
         status !== 'invalid',
       'border-pink-600 focus:border-pink-600 focus:ring-pink-600': status === 'invalid',
 
-      'h-12': size === 'm',
+      'h-14': size === 'm',
       'text-sm h-10': size === 's',
 
       'opacity-50': status === 'disabled',
