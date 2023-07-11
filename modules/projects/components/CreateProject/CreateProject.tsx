@@ -7,7 +7,7 @@ import CreateProjectForm from './CreateProjectForm';
 const CreateProject = () => (
   <div className="w-[400px]">
     <Heading level={1} size="xl" spacing="xl">
-      Create new project
+      Create new project pitch
     </Heading>
     <CreateProjectForm onCreated={() => console.log(1)} />
   </div>
