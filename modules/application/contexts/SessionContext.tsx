@@ -40,7 +40,7 @@ export const SessionContextProvider = (props) => {
     const unsubscribe = onAuthStateChanged(auth, async (_user) => {
       if (_user) {
         setUser(_user);
-        const idToken = await _user.getIdToken();
+        const idToken = await _user.getIdToken(true);
         setCookie(COOKIE_TOKEN, idToken);
       } else {
         setUser(null);
