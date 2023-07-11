@@ -1,13 +1,10 @@
 'use client';
 
-import { loginWithTwitter, logout } from '@/models/application/services/AuthenticationService';
-
-import { Button } from './DesignSystem';
-
-import { useSessionContext } from '../contexts/SessionContext';
+import { Button } from '@/modules/application/components/DesignSystem';
+import { useSessionContext } from '@/modules/application/contexts/SessionContext';
 
 const LoginButton = () => {
-  const { user } = useSessionContext();
+  const { user, login, logout } = useSessionContext();
 
   if (user) {
     return (
@@ -17,7 +14,7 @@ const LoginButton = () => {
     );
   }
 
-  return <Button onClick={loginWithTwitter}>Connect Twitter</Button>;
+  return <Button onClick={login}>Connect Twitter</Button>;
 };
 
 export default LoginButton;
