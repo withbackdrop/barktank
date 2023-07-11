@@ -9,12 +9,14 @@ import { useSessionContext } from '../contexts/SessionContext';
 const LoginButton = () => {
   const { user } = useSessionContext();
 
-  if (user)
+  if (user) {
     return (
       <Button theme="ghost" onClick={logout}>
         Logout
       </Button>
     );
+  }
+
   return <Button onClick={loginWithTwitter}>Connect Twitter</Button>;
 };
 
