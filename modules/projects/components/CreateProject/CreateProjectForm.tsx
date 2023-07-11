@@ -2,12 +2,11 @@
 
 import { Formik, Form } from 'formik';
 import { toast } from 'react-toastify';
-import { YoutubeTranscript } from 'youtube-transcript';
 import * as yup from 'yup';
 
 import { TranscriptInternalApiService } from '@/models/common/services/internalApi/TranscriptInternalApiService';
 import { createProject } from '@/models/projects/services/ProjectService';
-import { Button, Stack, Select } from '@/modules/application/components/DesignSystem';
+import { Button, Stack } from '@/modules/application/components/DesignSystem';
 import { useSessionContext } from '@/modules/application/contexts/SessionContext';
 import { FormikInputField, FormikTextareaField } from '@/modules/common/components/Formik';
 import { isValidUrl } from '@/modules/common/utils/urlUtils';
