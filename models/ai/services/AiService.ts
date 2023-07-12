@@ -3,7 +3,7 @@ import { StructuredOutputParser } from 'langchain/output_parsers';
 import { PromptTemplate } from 'langchain/prompts';
 import { z } from 'zod';
 
-import { getTemplateInitial, getTemplateResponse } from '@/models/query/services/TemplateService';
+import { getTemplateResponse } from '@/models/ai/services/TemplateService';
 
 export function getOutputParser() {
   return StructuredOutputParser.fromZodSchema(
@@ -22,24 +22,8 @@ export function getOutputParser() {
   );
 }
 
-function getModel() {
-  return new OpenAI({ temperature: 0 });
-}
-
-export async function getResponseInitial(text: string) {
-  const outputParser = getOutputParser();
-  const promptTemplate = new PromptTemplate({
-    template: getTemplateInitial(),
-    inputVariables: ['context'],
-    partialVariables: {
-      format_instructions: outputParser.getFormatInstructions(),
-    },
-  });
-
-  const input = await promptTemplate.format({
-    context: text,
-  });
-  return getModel().call(input);
+export function getModel() {
+  return new OpenAI({ openAIApiKey: process.env.NEXT_OPEN_API_KEY, temperature: 0 });
 }
 
 export async function getResponseNext(query: string, context: string, history: string) {
