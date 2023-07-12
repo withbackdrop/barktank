@@ -68,11 +68,11 @@ const mapBaseSize = {
     none: 'h-12',
   },
   l: {
-    full: 'h-16 px-5 text-lg w-full rounded-2xl',
-    auto: 'h-16 px-5 text-lg rounded-2xl',
-    square: 'h-16 w-16 text-lg rounded-2xl shrink-0',
-    round: 'h-16 w-16 text-lg rounded-full shrink-0',
-    none: 'h-16 text-lg',
+    full: 'h-16 px-5 text-2xl w-full rounded-2xl',
+    auto: 'h-16 px-5 text-2xl rounded-2xl',
+    square: 'h-16 w-16 text-2xl rounded-2xl shrink-0',
+    round: 'h-16 w-16 text-2xl rounded-full shrink-0',
+    none: 'h-16 text-2xl',
   },
   xl: {
     full: 'h-20 px-8 text-2xl w-full rounded-2xl',

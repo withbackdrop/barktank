@@ -11,6 +11,7 @@ interface Text {
   textAlign?: 'left' | 'center' | 'right';
   color?:
     | 'default'
+    | 'inherit'
     | 'white'
     | 'red-500'
     | 'gray-100'
@@ -40,7 +41,7 @@ const Text = forwardRef<any, Text>(
       fontFamily = 'sans',
       lineClamp = 'none',
     }: Text,
-    ref,
+    ref
   ) => {
     const classNamesComputed = classNames({
       'font-mono': fontFamily === 'mono',
@@ -98,7 +99,7 @@ const Text = forwardRef<any, Text>(
         {children}
       </Tag>
     );
-  },
+  }
 );
 
 export default Text;

@@ -54,7 +54,7 @@ const Note = ({
           </div>
         )}
         <div>
-          <Text color="default" fontFamily="mono" size={size} fontWeight="semibold" tag="div" textAlign={align}>
+          <Text color="inherit" fontFamily="mono" size={size} fontWeight="semibold" tag="div" textAlign={align}>
             <span>{children}</span>
           </Text>
         </div>

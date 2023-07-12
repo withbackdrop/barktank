@@ -37,8 +37,8 @@ const Heading = ({
     'text-sm': size === 's',
     'text-lg': size === 'm',
     'text-xl': size === 'l',
-    'text-3xl': size === 'xl',
-    'text-5xl': size === 'xxl',
+    'text-2xl': size === 'xl',
+    'text-3xl': size === 'xxl',
 
     'leading-tight tracking-tight': level === 0 || level === 1 || level === 2,
     'leading-snug': level === 3 || level === 4,

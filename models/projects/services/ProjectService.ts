@@ -1,4 +1,8 @@
-import { createFirestoreCollectionDocument } from '@/models/application/services/FirestoreService';
+import {
+  createFirestoreCollectionDocument,
+  getFirestoreCollectionDocumentById,
+} from '@/models/application/services/FirestoreService';
+import { ProjectInterface } from '@/models/projects/interfaces/ProjectInterface';
 
 const COLLECTION_NAME = 'projects';
 
@@ -16,4 +20,8 @@ export async function createProject(
     youtubeUrl,
     transcript,
   });
+}
+
+export async function getProjectById(projectId: string): Promise<ProjectInterface> {
+  return getFirestoreCollectionDocumentById<ProjectInterface>(COLLECTION_NAME, projectId);
 }
