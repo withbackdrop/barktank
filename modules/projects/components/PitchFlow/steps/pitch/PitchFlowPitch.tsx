@@ -6,7 +6,7 @@ import Spinner from '@/modules/common/components/animations/Spinner';
 import SlowText from '@/modules/common/components/SlowText';
 import PitchReplyForm from '@/modules/projects/components/PitchFlow/PitchReplyForm';
 
-const PitchFlowPitch = ({ flowData: { project }, onAccept }: any) => {
+const PitchFlowPitch = ({ flowData: { project } }: any) => {
   const [result, setResult] = useState<any>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   useEffect(() => {

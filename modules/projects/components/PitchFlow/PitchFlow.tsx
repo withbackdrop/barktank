@@ -14,7 +14,7 @@ const PitchFlow = ({ project }) => {
   const { currentStep, handleGoToStep } = useFlow({
     steps: {
       [steps.START]: <PitchFlowStart onAccept={() => handleGoToNextStep(steps.PITCH)} />,
-      [steps.PITCH]: <PitchFlowPitch onAccept={() => handleGoToNextStep(steps.PITCH)} />,
+      [steps.PITCH]: <PitchFlowPitch />,
     },
     initialStep: steps.START,
     data: { project },
