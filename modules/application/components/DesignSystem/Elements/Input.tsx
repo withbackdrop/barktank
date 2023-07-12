@@ -54,7 +54,7 @@ const Input = forwardRef<HTMLInputElement, Input>(
           status !== 'invalid' && theme === 'default',
         'border-pink-600 focus:border-pink-600 focus:ring-pink-600': status === 'invalid' && theme === 'default',
         'text-xl leading-tight tracking-tight': size === 'xl',
-        'h-14': size === 'm',
+        'h-12': size === 'm',
         'text-sm h-10': size === 's',
         'font-normal': fontWeight === 'normal',
         'font-medium': fontWeight === 'medium',

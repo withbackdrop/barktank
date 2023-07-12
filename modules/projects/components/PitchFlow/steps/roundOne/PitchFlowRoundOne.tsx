@@ -4,6 +4,7 @@ import { PitchInternalApiService } from '@/models/projects/services/internalApi/
 import { Card } from '@/modules/application/components/DesignSystem';
 import Spinner from '@/modules/common/components/animations/Spinner';
 import SlowText from '@/modules/common/components/SlowText';
+import PitchReplyForm from '@/modules/projects/components/PitchFlow/PitchReplyForm';
 
 const PitchFlowRoundOne = ({ flowData: { project }, onAccept }: any) => {
   const [result, setResult] = useState<any>(null);
@@ -27,10 +28,10 @@ const PitchFlowRoundOne = ({ flowData: { project }, onAccept }: any) => {
 
   return (
     <Card elevation="l">
-      <div className="flex flex-col">
-        <SlowText speed={20} text={result.response[0].feedback} />
-        <SlowText speed={20} text={result.response[0].question} />
+      <div className="mb-10">
+        <SlowText speed={20} text={`${result.response[0].feedback} ${result.response[0].question}`} />
       </div>
+      <PitchReplyForm onSubmit={(text) => console.log(text)} />
     </Card>
   );
 };

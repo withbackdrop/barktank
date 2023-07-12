@@ -31,8 +31,8 @@ export async function getPitchResponse(projectId: string) {
   try {
     return await outputParser.parse(result);
   } catch (e) {
-    return null;
     console.log(e, 'failed');
+    return null;
   }
 
   // console.log(2);
