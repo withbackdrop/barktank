@@ -20,9 +20,10 @@ const validationSchema = yup.object().shape({
 
 const PitchReplyForm = ({ onSubmit }: { onSubmit: (text) => any }) => (
   <Formik
-    onSubmit={async ({ text }) => {
+    onSubmit={async ({ text }, { resetForm }) => {
       try {
         onSubmit(text);
+        resetForm();
       } catch (error: any) {
         toast.error('Reply could not be submitted.');
       }
