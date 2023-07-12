@@ -9,6 +9,7 @@ import PitchReplyForm from '@/modules/projects/components/PitchFlow/PitchReplyFo
 const PitchFlowPitch = ({ flowData: { project } }: any) => {
   const [result, setResult] = useState<any>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
+
   useEffect(() => {
     (async () => {
       const pitchInternalService = new PitchInternalApiService(true);
@@ -21,24 +22,24 @@ const PitchFlowPitch = ({ flowData: { project } }: any) => {
   if (isLoading) {
     return (
       <Card elevation="l">
-        <Spinner align="center" size="xl" />
+        <Spinner align="center" size="m" />
       </Card>
     );
   }
 
   return (
     <Card elevation="l">
-      <div className="mb-10">
+      <div className="flex flex-col space-y-4">
         <Text tag="div">
           <strong>Bark: </strong>
-          <SlowText speed={20} text={`${result.response[0].feedback} ${result.response[0].question}`} />
+          <SlowText speed={10} text={`${result.response[0].feedback} ${result.response[0].question}`} />
           <br />
           <Note color="blue">
             <strong>Probability to invest: </strong> {result.response[0].probability}%
           </Note>
         </Text>
+        <PitchReplyForm onSubmit={(text) => console.log(text)} />
       </div>
-      <PitchReplyForm onSubmit={(text) => console.log(text)} />
     </Card>
   );
 };
