@@ -21,7 +21,7 @@ const PitchFlowPitch = ({ flowData: { project }, onAccept }: any) => {
   if (isLoading) {
     return (
       <Card elevation="l">
-        <Spinner align="center" />
+        <Spinner align="center" size="xl" />
       </Card>
     );
   }

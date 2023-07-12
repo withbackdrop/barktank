@@ -9,7 +9,7 @@ import PitchFlow from './PitchFlow';
 const PitchFlowContainer = ({ projectId }: { projectId: string }) => {
   const { project, isLoading } = useProject(projectId);
   if (isLoading) {
-    return <Spinner align="center" size="l" />;
+    return <Spinner align="center" size="xl" />;
   }
 
   if (!project) {

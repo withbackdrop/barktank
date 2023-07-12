@@ -65,7 +65,7 @@ export const SessionContextProvider = (props) => {
   if (isLoading) {
     return (
       <div className="flex h-screen items-center justify-center">
-        <Spinner size="l" align="center" />
+        <Spinner size="xl" align="center" />
       </div>
     );
   }
