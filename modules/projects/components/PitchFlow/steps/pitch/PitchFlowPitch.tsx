@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
 import { PitchInternalApiService } from '@/models/projects/services/internalApi/PitchInternalApiService';
-import { Card, Text } from '@/modules/application/components/DesignSystem';
+import { Card, Text, Note } from '@/modules/application/components/DesignSystem';
 import Spinner from '@/modules/common/components/animations/Spinner';
 import SlowText from '@/modules/common/components/SlowText';
 import PitchReplyForm from '@/modules/projects/components/PitchFlow/PitchReplyForm';
@@ -32,6 +32,10 @@ const PitchFlowPitch = ({ flowData: { project }, onAccept }: any) => {
         <Text tag="div">
           <strong>Bark: </strong>
           <SlowText speed={20} text={`${result.response[0].feedback} ${result.response[0].question}`} />
+          <br />
+          <Note color="blue">
+            <strong>Probability to invest: </strong> {result.response[0].probability}%
+          </Note>
         </Text>
       </div>
       <PitchReplyForm onSubmit={(text) => console.log(text)} />
