@@ -1,6 +1,6 @@
 const Steps = {
   START: 'start',
-  ROUND_ONE: 'roundOne',
+  PITCH: 'pitch',
 };
 
 export default Steps;

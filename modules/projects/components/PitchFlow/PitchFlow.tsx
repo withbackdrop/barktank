@@ -2,7 +2,7 @@
 
 import useFlow from '@/modules/application/hooks/useFlow';
 
-import PitchFlowRoundOne from './steps/roundOne/PitchFlowRoundOne';
+import PitchFlowPitch from './steps/pitch/PitchFlowPitch';
 import PitchFlowStart from './steps/start/PitchFlowStart';
 import steps from './utils/steps';
 
@@ -13,8 +13,8 @@ const PitchFlow = ({ project }) => {
 
   const { currentStep, handleGoToStep } = useFlow({
     steps: {
-      [steps.START]: <PitchFlowStart onAccept={() => handleGoToNextStep(steps.ROUND_ONE)} />,
-      [steps.ROUND_ONE]: <PitchFlowRoundOne onAccept={() => handleGoToNextStep(steps.ROUND_ONE)} />,
+      [steps.START]: <PitchFlowStart onAccept={() => handleGoToNextStep(steps.PITCH)} />,
+      [steps.PITCH]: <PitchFlowPitch onAccept={() => handleGoToNextStep(steps.PITCH)} />,
     },
     initialStep: steps.START,
     data: { project },
