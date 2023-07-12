@@ -19,6 +19,12 @@ const PitchFlowPitch = ({ flowData: { project } }: any) => {
     })();
   }, []);
 
+  const handleGetNextResponse = async (text) => {
+    const pitchInternalService = new PitchInternalApiService(true);
+    const response = await pitchInternalService.getPitchResponse(project.id, text);
+    console.log(response);
+  };
+
   if (isLoading) {
     return (
       <Card elevation="l">
@@ -38,7 +44,7 @@ const PitchFlowPitch = ({ flowData: { project } }: any) => {
             <strong>Probability to invest: </strong> {result.response[0].probability}%
           </Note>
         </Text>
-        <PitchReplyForm onSubmit={(text) => console.log(text)} />
+        <PitchReplyForm onSubmit={handleGetNextResponse} />
       </div>
     </Card>
   );

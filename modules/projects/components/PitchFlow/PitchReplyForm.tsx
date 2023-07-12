@@ -35,7 +35,7 @@ const PitchReplyForm = ({ onSubmit }: { onSubmit: (text) => any }) => (
   >
     {({ isSubmitting }) => (
       <Form>
-        <div className="flex w-full grow space-x-2">
+        <div className="flex w-full grow space-x-4">
           <div className="w-full">
             <FormikInputField size="m" name="text" placeholder="What do you say to that?!" />
           </div>

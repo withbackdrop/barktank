@@ -1,16 +1,12 @@
 import { PromptTemplate } from 'langchain/prompts';
 
-import { getModel, getOutputParser } from '@/models/ai/services/AiService';
-import { getTemplateInitial } from '@/models/ai/services/TemplateService';
+import { getModel, getOutputParser, getOutputParserInitial } from '@/models/ai/services/AiService';
+import { getTemplateInitial, getTemplateResponse } from '@/models/ai/services/TemplateService';
+import { ProjectInterface } from '@/models/projects/interfaces/ProjectInterface';
 import { getProjectById } from '@/models/projects/services/ProjectService';
 
-export async function getPitchResponse(projectId: string) {
-  const project = await getProjectById(projectId);
-  if (!project) {
-    throw new Error('Project not found.');
-  }
-
-  const outputParser = getOutputParser();
+async function getInitialPitchResponse(project: ProjectInterface) {
+  const outputParser = getOutputParserInitial();
   const promptTemplate = new PromptTemplate({
     template: getTemplateInitial(),
     inputVariables: ['projectName', 'transcript'],
@@ -32,18 +28,44 @@ export async function getPitchResponse(projectId: string) {
     console.log(e, 'failed');
     return null;
   }
+}
 
-  // console.log(2);
-  // const fixParser = OutputFixingParser.fromLLM(
-  //   new ChatOpenAI({ openAIApiKey: process.env.NEXT_OPEN_API_KEY, temperature: 0 }),
-  //   outputParser
-  // );
-  //
-  // console.log(3);
-  // const output = await fixParser.parse(result);
-  //
-  // console.log(4);
-  // console.log('Fixed output: ');
-  // console.log(output);
-  // return result;
+async function getNextPitchResponse(project: ProjectInterface, text: string) {
+  const outputParser = getOutputParser();
+  const promptTemplate = new PromptTemplate({
+    template: getTemplateResponse(),
+    inputVariables: ['projectName', 'transcript', 'text', 'history'],
+    partialVariables: {
+      format_instructions: outputParser.getFormatInstructions(),
+    },
+  });
+
+  const input = await promptTemplate.format({
+    projectName: project.name,
+    transcript: project.transcript,
+    text,
+    history: 'todo',
+  });
+
+  const result = await getModel().call(input);
+
+  try {
+    return await outputParser.parse(result);
+  } catch (e) {
+    console.log(e, 'failed');
+    return null;
+  }
+}
+
+export async function getPitchResponse(projectId: string, text?: string) {
+  const project = await getProjectById(projectId);
+  if (!project) {
+    throw new Error('Project not found.');
+  }
+
+  if (!text) {
+    return getInitialPitchResponse(project);
+  }
+
+  return getNextPitchResponse(project, text);
 }
