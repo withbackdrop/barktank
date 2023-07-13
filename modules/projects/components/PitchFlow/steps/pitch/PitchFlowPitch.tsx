@@ -34,7 +34,10 @@ const PitchFlowPitch = ({ flowData: { project } }: any) => {
             />
           );
         })}
-        <PitchReplyForm onSubmit={getResponse} />
+        {conversations.length > 0 &&
+          conversations[conversations.length - 1].actor === ConversationLogActorEnum.SYSTEM && (
+            <PitchReplyForm onSubmit={getResponse} />
+          )}
       </div>
     </Card>
   );

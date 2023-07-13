@@ -5,7 +5,7 @@ import { toast } from 'react-toastify';
 import * as yup from 'yup';
 
 import { Button } from '@/modules/application/components/DesignSystem';
-import { FormikInputField } from '@/modules/common/components/Formik';
+import { FormikTextareaField } from '@/modules/common/components/Formik';
 
 import { REPLY_MIN_LENGTH, REPLY_MAX_LENGTH } from './utils/constants';
 
@@ -38,7 +38,7 @@ const PitchReplyForm = ({ onSubmit }: { onSubmit: (text) => any }) => (
       <Form>
         <div className="flex w-full grow space-x-4">
           <div className="w-full">
-            <FormikInputField size="m" name="text" placeholder="What do you say to that?!" />
+            <FormikTextareaField size="m" name="text" placeholder="What do you say to that?!" />
           </div>
           <Button size="m" type="submit" status={isSubmitting ? 'busy' : ''}>
             Submit
