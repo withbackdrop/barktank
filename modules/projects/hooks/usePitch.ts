@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
 import { ConversationLogActorEnum } from '@/models/ai/enums/ConversationLogActorEnum';
+import { deleteConversationLogByProjectId } from '@/models/ai/services/ConversationLogService';
 import { PitchInternalApiService } from '@/models/projects/services/internalApi/PitchInternalApiService';
 
 interface ConversationInterface {
@@ -18,6 +19,8 @@ const usePitch = (projectId: string) => {
 
   useEffect(() => {
     (async () => {
+      await deleteConversationLogByProjectId(projectId);
+
       const pitchInternalService = new PitchInternalApiService(true);
       const response = await pitchInternalService.getPitchResponse(projectId);
       setIsLoading(false);

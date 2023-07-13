@@ -3,7 +3,7 @@
 import { ConversationLogActorEnum } from '@/models/ai/enums/ConversationLogActorEnum';
 
 export interface ConversationLogInterface {
-  id: number;
+  id: string;
   projectId: string;
   actor: ConversationLogActorEnum;
   text: string;

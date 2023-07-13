@@ -2,6 +2,7 @@ import { ConversationLogActorEnum } from '@/models/ai/enums/ConversationLogActor
 import { ConversationLogInterface } from '@/models/ai/interfaces/ConversationLogInterface';
 import {
   createFirestoreCollectionDocument,
+  deleteFirestoreCollectionDocumentById,
   getFirestoreCollectionDocumentsByWhereConditions,
   getWhereQueryConstraint,
 } from '@/models/application/services/FirestoreService';
@@ -41,4 +42,15 @@ export async function getConversationLogString(projectId: string): Promise<strin
   documents.forEach((document) => (text += `${document.actor}: ${document.text}\n`));
 
   return text;
+}
+
+export async function deleteConversationLogByProjectId(projectId: string): Promise<void> {
+  const documents = await getConversationLogsByProjectId(projectId);
+  if (!documents) {
+    return null;
+  }
+
+  await Promise.all(
+    documents.map(async (document) => deleteFirestoreCollectionDocumentById(COLLECTION_NAME, document.id))
+  );
 }
