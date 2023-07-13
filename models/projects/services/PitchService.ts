@@ -2,7 +2,7 @@ import { PromptTemplate } from 'langchain/prompts';
 
 import { ConversationLogActorEnum } from '@/models/ai/enums/ConversationLogActorEnum';
 import { getModel, getOutputParser, getOutputParserInitial } from '@/models/ai/services/AiService';
-import { addToConversationLog } from '@/models/ai/services/ConversationLogService';
+import { addToConversationLog, getConversationLogString } from '@/models/ai/services/ConversationLogService';
 import { getTemplateInitial, getTemplateResponse } from '@/models/ai/services/TemplateService';
 import { ProjectInterface } from '@/models/projects/interfaces/ProjectInterface';
 import { getProjectById } from '@/models/projects/services/ProjectService';
@@ -32,7 +32,7 @@ async function getInitialPitchResponse(project: ProjectInterface) {
   }
 }
 
-async function getNextPitchResponse(project: ProjectInterface, text: string) {
+async function getNextPitchResponse(project: ProjectInterface, text: string, history: string) {
   const outputParser = getOutputParser();
   const promptTemplate = new PromptTemplate({
     template: getTemplateResponse(),
@@ -46,7 +46,7 @@ async function getNextPitchResponse(project: ProjectInterface, text: string) {
     projectName: project.name,
     transcript: project.transcript,
     text,
-    history: 'todo',
+    history,
   });
 
   const result = await getModel().call(input);
@@ -73,7 +73,9 @@ export async function getPitchResponse(projectId: string, text?: string) {
     return response?.[0];
   }
 
-  const response = await getNextPitchResponse(project, text);
+  const history = await getConversationLogString(projectId);
+
+  const response = await getNextPitchResponse(project, text, history);
 
   await addToConversationLog(projectId, ConversationLogActorEnum.USER, text);
   await addToConversationLog(projectId, ConversationLogActorEnum.SYSTEM, response?.[0]?.response);

@@ -30,3 +30,15 @@ export async function getConversationLogsByProjectId(projectId: string): Promise
 
   return documents;
 }
+
+export async function getConversationLogString(projectId: string): Promise<string> {
+  const documents = await getConversationLogsByProjectId(projectId);
+  if (!documents) {
+    return '';
+  }
+
+  let text = '';
+  documents.forEach((document) => (text += `${document.actor}: ${document.text}\n`));
+
+  return text;
+}
