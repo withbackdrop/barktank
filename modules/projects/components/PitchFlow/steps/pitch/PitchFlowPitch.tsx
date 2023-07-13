@@ -6,40 +6,23 @@ import { ConversationLogActorEnum } from '@/models/ai/enums/ConversationLogActor
 import { Card, Note } from '@/modules/application/components/DesignSystem';
 import Spinner from '@/modules/common/components/animations/Spinner';
 import PitchReplyForm from '@/modules/projects/components/PitchFlow/PitchReplyForm';
-import usePitch, { ConversationInterface } from '@/modules/projects/hooks/usePitch';
+import usePitch from '@/modules/projects/hooks/usePitch';
 
 import ConversationItemSystem from './ConversationItemSystem';
 import ConversationItemUser from './ConversationItemUser';
 
 const PitchFlowPitch = ({ flowData: { project } }: any) => {
-  const { conversations, isLoading, getResponse } = usePitch(project.id);
-  const [willInvest, setWillInvest] = useState<boolean>(null);
+  const { conversations, isLoading, getResponse, willInvest } = usePitch(project.id);
 
   useEffect(() => {
-    if (conversations.length > 0) {
-      const lastConversation = conversations[conversations.length - 1] as ConversationInterface;
-      if (lastConversation.actor !== ConversationLogActorEnum.SYSTEM) {
-        return;
-      }
-
-      if (conversations.length >= 6 && lastConversation.probability < 80) {
-        setWillInvest(false);
-        return;
-      }
-
-      if (lastConversation.probability < 80) {
-        return;
-      }
-
-      setWillInvest(true);
-
+    if (willInvest === true) {
       Confetti({
         spread: 300,
         particleCount: 250,
         ticks: 300,
       });
     }
-  }, [conversations]);
+  }, [willInvest]);
 
   if (isLoading) {
     return (

@@ -5,8 +5,9 @@ import { v4 as uuidv4 } from 'uuid';
 import { ConversationLogActorEnum } from '@/models/ai/enums/ConversationLogActorEnum';
 import { deleteConversationLogByProjectId } from '@/models/ai/services/ConversationLogService';
 import { PitchInternalApiService } from '@/models/projects/services/internalApi/PitchInternalApiService';
+import { PROBABILITY_PITCH_ACCEPT } from '@/modules/projects/components/PitchFlow/utils/constants';
 
-export interface ConversationInterface {
+interface ConversationInterface {
   id: string;
   actor: string;
   text: string;
@@ -15,6 +16,7 @@ export interface ConversationInterface {
 
 const usePitch = (projectId: string) => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [willInvest, setWillInvest] = useState<boolean>(null);
   const [conversations, setConversations] = useState<ConversationInterface[]>([]);
 
   useEffect(() => {
@@ -44,6 +46,16 @@ const usePitch = (projectId: string) => {
 
     const pitchInternalService = new PitchInternalApiService(true);
     const response = await pitchInternalService.getPitchResponse(projectId, text);
+    if (response.probability >= PROBABILITY_PITCH_ACCEPT) {
+      setWillInvest(true);
+      return;
+    }
+
+    if (conversations.length === 6) {
+      setWillInvest(false);
+      return;
+    }
+
     setConversations((_conversations) => [
       ..._conversations,
       {
@@ -55,7 +67,7 @@ const usePitch = (projectId: string) => {
     ]);
   };
 
-  return { conversations, isLoading, getResponse: handleGetNextResponse };
+  return { conversations, isLoading, willInvest, getResponse: handleGetNextResponse };
 };
 
 export default usePitch;
