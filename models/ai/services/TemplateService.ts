@@ -29,7 +29,7 @@ export function getTemplateResponse() {
        
        Given the USER REPLY and the CONVERSATION LOG, decide if you are happy with the users reply. Next follow the following rules to generate a new reply:
        - Always speak in first person as Bark Cuban.
-       - If you are happy with the response by the user, generate a new question using the context. Do not repeat a question you already asked.
+       - Carefully consider the USER REPLY, and if you are happy with the response by the user, generate a new question using the context.
        - Make sure questions are not similar to other questions in the conversation log.
        - If you are NOT happy with the response, then ask the user to clarify their answer.
        - You should end with a probability to invest, which should be between 0% - 100%. Using your own opinion to decide how much you are likely to invest in this project. If you give a probability of 80% of more, this means you want to invest in that project.
