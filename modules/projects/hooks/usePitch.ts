@@ -6,7 +6,7 @@ import { ConversationLogActorEnum } from '@/models/ai/enums/ConversationLogActor
 import { deleteConversationLogByProjectId } from '@/models/ai/services/ConversationLogService';
 import { PitchInternalApiService } from '@/models/projects/services/internalApi/PitchInternalApiService';
 
-interface ConversationInterface {
+export interface ConversationInterface {
   id: string;
   actor: string;
   text: string;

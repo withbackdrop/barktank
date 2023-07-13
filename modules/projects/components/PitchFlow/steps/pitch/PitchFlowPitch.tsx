@@ -1,14 +1,45 @@
+import { useEffect, useState } from 'react';
+
+import Confetti from 'canvas-confetti';
+
 import { ConversationLogActorEnum } from '@/models/ai/enums/ConversationLogActorEnum';
-import { Card } from '@/modules/application/components/DesignSystem';
+import { Card, Note } from '@/modules/application/components/DesignSystem';
 import Spinner from '@/modules/common/components/animations/Spinner';
 import PitchReplyForm from '@/modules/projects/components/PitchFlow/PitchReplyForm';
-import usePitch from '@/modules/projects/hooks/usePitch';
+import usePitch, { ConversationInterface } from '@/modules/projects/hooks/usePitch';
 
 import ConversationItemSystem from './ConversationItemSystem';
 import ConversationItemUser from './ConversationItemUser';
 
 const PitchFlowPitch = ({ flowData: { project } }: any) => {
   const { conversations, isLoading, getResponse } = usePitch(project.id);
+  const [willInvest, setWillInvest] = useState<boolean>(null);
+
+  useEffect(() => {
+    if (conversations.length > 0) {
+      const lastConversation = conversations[conversations.length - 1] as ConversationInterface;
+      if (lastConversation.actor !== ConversationLogActorEnum.SYSTEM) {
+        return;
+      }
+
+      if (conversations.length >= 6 && lastConversation.probability < 80) {
+        setWillInvest(false);
+        return;
+      }
+
+      if (lastConversation.probability < 80) {
+        return;
+      }
+
+      setWillInvest(true);
+
+      Confetti({
+        spread: 300,
+        particleCount: 250,
+        ticks: 300,
+      });
+    }
+  }, [conversations]);
 
   if (isLoading) {
     return (
@@ -34,10 +65,21 @@ const PitchFlowPitch = ({ flowData: { project } }: any) => {
             />
           );
         })}
-        {conversations.length > 0 &&
+        {willInvest === null &&
+          conversations.length > 0 &&
           conversations[conversations.length - 1].actor === ConversationLogActorEnum.SYSTEM && (
             <PitchReplyForm onSubmit={getResponse} />
           )}
+        {willInvest === true && (
+          <Note color="green" align="center">
+            Congrats! I have decided to invest!
+          </Note>
+        )}
+        {willInvest === false && (
+          <Note color="red" align="center">
+            Unfortunately I have decided not to invest!
+          </Note>
+        )}
       </div>
     </Card>
   );
