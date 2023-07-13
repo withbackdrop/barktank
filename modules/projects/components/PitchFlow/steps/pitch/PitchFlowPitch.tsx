@@ -13,6 +13,7 @@ import ConversationItemUser from './ConversationItemUser';
 
 const PitchFlowPitch = ({ flowData: { project } }: any) => {
   const { conversations, isLoading, getResponse, willInvest } = usePitch(project.id);
+  console.log(willInvest);
 
   useEffect(() => {
     if (willInvest === true) {

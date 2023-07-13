@@ -51,7 +51,7 @@ const usePitch = (projectId: string) => {
       return;
     }
 
-    if (conversations.length === 6) {
+    if (conversations.length >= 6) {
       setWillInvest(false);
       return;
     }
