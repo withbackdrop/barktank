@@ -38,10 +38,10 @@ const PitchFlowPitch = ({ flowData: { project } }: any) => {
       <div className="flex flex-col space-y-4">
         <Text tag="div">
           <strong>Bark: </strong>
-          <SlowText speed={10} text={`${result.response[0].feedback} ${result.response[0].question}`} />
+          <SlowText speed={10} text={result.response} />
           <br />
           <Note color="blue">
-            <strong>Probability to invest: </strong> {result.response[0].probability}%
+            <strong>Probability to invest: </strong> {result.probability}%
           </Note>
         </Text>
         <PitchReplyForm onSubmit={handleGetNextResponse} />

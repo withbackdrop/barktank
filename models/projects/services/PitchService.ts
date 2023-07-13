@@ -1,6 +1,8 @@
 import { PromptTemplate } from 'langchain/prompts';
 
+import { ConversationLogActorEnum } from '@/models/ai/enums/ConversationLogActorEnum';
 import { getModel, getOutputParser, getOutputParserInitial } from '@/models/ai/services/AiService';
+import { addToConversationLog } from '@/models/ai/services/ConversationLogService';
 import { getTemplateInitial, getTemplateResponse } from '@/models/ai/services/TemplateService';
 import { ProjectInterface } from '@/models/projects/interfaces/ProjectInterface';
 import { getProjectById } from '@/models/projects/services/ProjectService';
@@ -64,8 +66,17 @@ export async function getPitchResponse(projectId: string, text?: string) {
   }
 
   if (!text) {
-    return getInitialPitchResponse(project);
+    const response = await getInitialPitchResponse(project);
+
+    await addToConversationLog(projectId, ConversationLogActorEnum.SYSTEM, response?.[0]?.response);
+
+    return response?.[0];
   }
 
-  return getNextPitchResponse(project, text);
+  const response = await getNextPitchResponse(project, text);
+
+  await addToConversationLog(projectId, ConversationLogActorEnum.USER, text);
+  await addToConversationLog(projectId, ConversationLogActorEnum.SYSTEM, response?.[0]?.response);
+
+  return response?.[0];
 }

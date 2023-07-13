@@ -6,16 +6,11 @@ export function getOutputParserInitial() {
   return StructuredOutputParser.fromZodSchema(
     z
       .object({
-        response: z
-          .object({
-            feedback: z.string().describe('Feedback to the pitch'),
-            question: z.string().describe('Next ask a critical question about the pitch.'),
-            probability: z.number().describe('A probability to invest. Between 0 and 100.'),
-          })
-          .array()
-          .describe('JSON data of feedback, question and a probability'),
+        response: z.string().describe('Feedback to the pitch followed by a critical question about the pitch.'),
+        probability: z.number().describe('A probability to invest. Between 0 and 100.'),
       })
-      .describe('Invester pitch feedback and critique')
+      .array()
+      .describe('JSON data of feedback, question and a probability.')
   );
 }
 
@@ -23,15 +18,11 @@ export function getOutputParser() {
   return StructuredOutputParser.fromZodSchema(
     z
       .object({
-        response: z
-          .object({
-            response: z.string().describe('AI response to the users reply'),
-            probability: z.number().describe('A probability to invest. Between 0 and 100.'),
-          })
-          .array()
-          .describe('JSON data of response and a probability'),
+        response: z.string().describe('AI response to the users reply. Includes a further question for the user.'),
+        probability: z.number().describe('A probability to invest. Between 0 and 100.'),
       })
-      .describe('Invester pitch response')
+      .array()
+      .describe('JSON data of an AI response and a probability.')
   );
 }
 
