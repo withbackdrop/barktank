@@ -10,7 +10,7 @@ export function getOutputParserInitial() {
         probability: z.number().describe('A probability to invest. Between 0 and 100.'),
       })
       .array()
-      .describe('JSON data of feedback, question and a probability.')
+      .describe('Response and a probability to invest.')
   );
 }
 
@@ -22,7 +22,7 @@ export function getOutputParser() {
         probability: z.number().describe('A probability to invest. Between 0 and 100.'),
       })
       .array()
-      .describe('JSON data of an AI response and a probability.')
+      .describe('Response and a probability to invest.')
   );
 }
 
