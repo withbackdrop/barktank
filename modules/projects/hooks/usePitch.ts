@@ -17,6 +17,7 @@ interface ConversationInterface {
 const usePitch = (projectId: string) => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [willInvest, setWillInvest] = useState<boolean>(null);
+  const [isThinking, setIsThinking] = useState<boolean>(false);
   const [conversations, setConversations] = useState<ConversationInterface[]>([]);
 
   useEffect(() => {
@@ -44,18 +45,22 @@ const usePitch = (projectId: string) => {
       { actor: ConversationLogActorEnum.USER, text, id: uuidv4() },
     ]);
 
+    setIsThinking(true);
     const pitchInternalService = new PitchInternalApiService(true);
     const response = await pitchInternalService.getPitchResponse(projectId, text);
     if (response.probability >= PROBABILITY_PITCH_ACCEPT) {
       setWillInvest(true);
+      setIsThinking(false);
       return;
     }
 
     if (conversations.length >= 6) {
       setWillInvest(false);
+      setIsThinking(false);
       return;
     }
 
+    setIsThinking(false);
     setConversations((_conversations) => [
       ..._conversations,
       {
@@ -67,7 +72,7 @@ const usePitch = (projectId: string) => {
     ]);
   };
 
-  return { conversations, isLoading, willInvest, getResponse: handleGetNextResponse };
+  return { conversations, isLoading, willInvest, isThinking, getResponse: handleGetNextResponse };
 };
 
 export default usePitch;

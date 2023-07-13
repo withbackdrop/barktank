@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
 import Confetti from 'canvas-confetti';
 
@@ -12,8 +12,7 @@ import ConversationItemSystem from './ConversationItemSystem';
 import ConversationItemUser from './ConversationItemUser';
 
 const PitchFlowPitch = ({ flowData: { project } }: any) => {
-  const { conversations, isLoading, getResponse, willInvest } = usePitch(project.id);
-  console.log(willInvest);
+  const { conversations, isLoading, getResponse, willInvest, isThinking } = usePitch(project.id);
 
   useEffect(() => {
     if (willInvest === true) {
@@ -54,6 +53,7 @@ const PitchFlowPitch = ({ flowData: { project } }: any) => {
           conversations[conversations.length - 1].actor === ConversationLogActorEnum.SYSTEM && (
             <PitchReplyForm onSubmit={getResponse} />
           )}
+        {isThinking && <Spinner />}
         {willInvest === true && (
           <Note color="green" align="center">
             Congrats! I have decided to invest!
