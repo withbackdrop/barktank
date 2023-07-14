@@ -43,6 +43,7 @@ export function getTemplateResponse() {
        - Make sure new questions are not similar to other questions in the conversation log.
        - If you are not happy with the response, then ask the user to clarify their answer.
        - You should end with a probability to invest, which should be between 0% - 100%. Using your own opinion to decide how much you are likely to invest in this project. If you give a probability of 80% of more, this means you want to invest in that project.
+       - Always consider the last probability from the conversation log when deciding on the next.
        
        Format: {format_instructions}
   `;
