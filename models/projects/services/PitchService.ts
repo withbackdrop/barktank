@@ -1,3 +1,4 @@
+import { ChatOpenAI } from 'langchain/chat_models/openai';
 import { OutputFixingParser } from 'langchain/output_parsers';
 import { PromptTemplate } from 'langchain/prompts';
 
@@ -29,7 +30,10 @@ async function getInitialPitchResponse(project: ProjectInterface) {
     return await outputParser.parse(result);
   } catch (e) {
     console.log(e, 'failed');
-    const fixParser = OutputFixingParser.fromLLM(getModel(), outputParser);
+    const fixParser = OutputFixingParser.fromLLM(
+      new ChatOpenAI({ openAIApiKey: process.env.NEXT_OPEN_API_KEY, temperature: 0 }),
+      outputParser
+    );
     return await fixParser.parse(result);
   }
 }
@@ -57,7 +61,10 @@ async function getNextPitchResponse(project: ProjectInterface, text: string, his
     return await outputParser.parse(result);
   } catch (e) {
     console.log(e, 'failed');
-    const fixParser = OutputFixingParser.fromLLM(getModel(), outputParser);
+    const fixParser = OutputFixingParser.fromLLM(
+      new ChatOpenAI({ openAIApiKey: process.env.NEXT_OPEN_API_KEY, temperature: 0 }),
+      outputParser
+    );
     return await fixParser.parse(result);
   }
 }
