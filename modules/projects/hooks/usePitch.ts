@@ -5,6 +5,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { ConversationLogActorEnum } from '@/models/ai/enums/ConversationLogActorEnum';
 import { deleteConversationLogByProjectId } from '@/models/ai/services/ConversationLogService';
 import { PitchInternalApiService } from '@/models/projects/services/internalApi/PitchInternalApiService';
+import { notifyAboutError } from '@/modules/application/utils/notifyAboutError';
 import { PROBABILITY_PITCH_ACCEPT } from '@/modules/projects/components/PitchFlow/utils/constants';
 
 interface ConversationInterface {
@@ -24,18 +25,23 @@ const usePitch = (projectId: string) => {
     (async () => {
       await deleteConversationLogByProjectId(projectId);
 
-      const pitchInternalService = new PitchInternalApiService(true);
-      const response = await pitchInternalService.getPitchResponse(projectId);
-      setIsLoading(false);
-      setConversations((_conversations) => [
-        ..._conversations,
-        {
-          actor: ConversationLogActorEnum.SYSTEM,
-          text: response.response,
-          probability: response.probability,
-          id: uuidv4(),
-        },
-      ]);
+      try {
+        const pitchInternalService = new PitchInternalApiService(true);
+        const response = await pitchInternalService.getPitchResponse(projectId);
+
+        setIsLoading(false);
+        setConversations((_conversations) => [
+          ..._conversations,
+          {
+            actor: ConversationLogActorEnum.SYSTEM,
+            text: response.response,
+            probability: response.probability,
+            id: uuidv4(),
+          },
+        ]);
+      } catch (e) {
+        notifyAboutError('Something went wrong. Please try again.');
+      }
     })();
   }, []);
 
