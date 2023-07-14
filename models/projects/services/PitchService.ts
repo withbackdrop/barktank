@@ -1,3 +1,4 @@
+import { OutputFixingParser } from 'langchain/output_parsers';
 import { PromptTemplate } from 'langchain/prompts';
 
 import { ConversationLogActorEnum } from '@/models/ai/enums/ConversationLogActorEnum';
@@ -28,7 +29,8 @@ async function getInitialPitchResponse(project: ProjectInterface) {
     return await outputParser.parse(result);
   } catch (e) {
     console.log(e, 'failed');
-    return null;
+    const fixParser = OutputFixingParser.fromLLM(getModel(), outputParser);
+    return await fixParser.parse(result);
   }
 }
 
@@ -55,7 +57,8 @@ async function getNextPitchResponse(project: ProjectInterface, text: string, his
     return await outputParser.parse(result);
   } catch (e) {
     console.log(e, 'failed');
-    return null;
+    const fixParser = OutputFixingParser.fromLLM(getModel(), outputParser);
+    return await fixParser.parse(result);
   }
 }
 
