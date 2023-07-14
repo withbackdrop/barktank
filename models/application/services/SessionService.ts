@@ -6,6 +6,7 @@ export const COOKIE_TOKEN = 'token';
 export const COOKIE_DURATION_1_YEAR = 365;
 export const COOKIE_DURATION_30_DAYS = 30;
 export const COOKIE_DURATION_7_DAYS = 7;
+export const COOKIE_DURATION_1_HOUR = 1 / 24;
 
 export function setCookie(name: string, value: string, expires = COOKIE_DURATION_7_DAYS): void {
   Cookies.set(name, value, { path: '/', expires });

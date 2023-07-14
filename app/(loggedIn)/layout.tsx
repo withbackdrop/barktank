@@ -10,11 +10,13 @@ import { SessionContextProvider } from '@/modules/application/contexts/SessionCo
 
 export default async function Layout({ children }: { children: ReactNode }) {
   const authToken = getCookieOnServer(COOKIE_TOKEN);
-  if (authToken) {
-    const token = await adminSDK.auth().verifyIdToken(authToken);
-    if (!token) {
-      redirect(getUrlIndex());
-    }
+  if (!authToken) {
+    redirect(getUrlIndex());
+  }
+
+  const token = await adminSDK.auth().verifyIdToken(authToken);
+  if (!token) {
+    redirect(getUrlIndex());
   }
 
   return <SessionContextProvider>{children}</SessionContextProvider>;

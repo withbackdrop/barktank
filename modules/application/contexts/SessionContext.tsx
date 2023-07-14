@@ -2,12 +2,16 @@
 
 import { createContext, useContext, useEffect, useMemo, useState } from 'react';
 
-import { setCookie } from 'cookies-next';
 import { onAuthStateChanged, getAuth, User } from 'firebase/auth';
 
 import firebaseApp from '@/firebase/config';
 import { loginWithTwitter, logout } from '@/models/application/services/AuthenticationService';
-import { COOKIE_TOKEN, removeCookie } from '@/models/application/services/SessionService';
+import {
+  COOKIE_DURATION_1_HOUR,
+  COOKIE_TOKEN,
+  removeCookie,
+  setCookie,
+} from '@/models/application/services/SessionService';
 import { getUrlHome, getUrlIndex, windowRedirect } from '@/models/application/services/UrlService';
 import Spinner from '@/modules/common/components/animations/Spinner';
 
@@ -41,7 +45,7 @@ export const SessionContextProvider = (props) => {
       if (_user) {
         setUser(_user);
         const idToken = await _user.getIdToken(true);
-        setCookie(COOKIE_TOKEN, idToken);
+        setCookie(COOKIE_TOKEN, idToken, COOKIE_DURATION_1_HOUR);
       } else {
         setUser(null);
         removeCookie(COOKIE_TOKEN);
