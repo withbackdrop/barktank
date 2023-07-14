@@ -11,11 +11,13 @@ const COLLECTION_NAME = 'conversationLog';
 
 export async function addToConversationLog(
   projectId: string,
+  userId: string,
   actor: ConversationLogActorEnum,
   text: string
 ): Promise<any> {
   return createFirestoreCollectionDocument(COLLECTION_NAME, {
     projectId,
+    userId,
     actor,
     text,
   });
