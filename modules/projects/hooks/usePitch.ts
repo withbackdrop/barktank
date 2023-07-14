@@ -52,30 +52,34 @@ const usePitch = (projectId: string) => {
     ]);
 
     setIsThinking(true);
-    const pitchInternalService = new PitchInternalApiService(true);
-    const response = await pitchInternalService.getPitchResponse(projectId, text);
-    if (response.probability >= PROBABILITY_PITCH_ACCEPT) {
-      setWillInvest(true);
-      setIsThinking(false);
-      return;
-    }
+    try {
+      const pitchInternalService = new PitchInternalApiService(true);
+      const response = await pitchInternalService.getPitchResponse(projectId, text);
+      if (response.probability >= PROBABILITY_PITCH_ACCEPT) {
+        setWillInvest(true);
+        setIsThinking(false);
+        return;
+      }
 
-    if (conversations.length >= 6) {
-      setWillInvest(false);
-      setIsThinking(false);
-      return;
-    }
+      if (conversations.length >= 6) {
+        setWillInvest(false);
+        setIsThinking(false);
+        return;
+      }
 
-    setIsThinking(false);
-    setConversations((_conversations) => [
-      ..._conversations,
-      {
-        actor: ConversationLogActorEnum.SYSTEM,
-        text: response.response,
-        probability: response.probability,
-        id: uuidv4(),
-      },
-    ]);
+      setIsThinking(false);
+      setConversations((_conversations) => [
+        ..._conversations,
+        {
+          actor: ConversationLogActorEnum.SYSTEM,
+          text: response.response,
+          probability: response.probability,
+          id: uuidv4(),
+        },
+      ]);
+    } catch (e) {
+      notifyAboutError('Something went wrong. Please try again.');
+    }
   };
 
   return { conversations, isLoading, willInvest, isThinking, getResponse: handleGetNextResponse };
