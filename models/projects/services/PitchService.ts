@@ -78,7 +78,13 @@ export async function getPitchResponse(projectId: string, text?: string) {
   if (!text) {
     const response = await getInitialPitchResponse(project);
 
-    await addToConversationLog(projectId, project.userId, ConversationLogActorEnum.SYSTEM, response?.[0]?.response);
+    await addToConversationLog(
+      projectId,
+      project.userId,
+      ConversationLogActorEnum.SYSTEM,
+      response?.[0]?.response,
+      response?.[0]?.probability
+    );
 
     return response?.[0];
   }
@@ -88,7 +94,13 @@ export async function getPitchResponse(projectId: string, text?: string) {
   const response = await getNextPitchResponse(project, text, history);
 
   await addToConversationLog(projectId, project.userId, ConversationLogActorEnum.USER, text);
-  await addToConversationLog(projectId, project.userId, ConversationLogActorEnum.SYSTEM, response?.[0]?.response);
+  await addToConversationLog(
+    projectId,
+    project.userId,
+    ConversationLogActorEnum.SYSTEM,
+    response?.[0]?.response,
+    response?.[0]?.probability
+  );
 
   return response?.[0];
 }
