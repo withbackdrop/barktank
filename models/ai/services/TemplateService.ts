@@ -1,4 +1,18 @@
-export function getTemplateInitial() {
+import { DifficultyEnum } from '@/models/projects/enums/DifficultyEnum';
+
+function getDifficultyText(difficulty: DifficultyEnum) {
+  switch (difficulty) {
+    case DifficultyEnum.EASY:
+      return 'You should be easily convinced to invest at the end, meaning your probability to invest should always be above 50%';
+    case DifficultyEnum.NORMAL:
+      return 'You should be an average investor, not too hard and not too easy to convince to invest, and your probability to invest should be always above 30%';
+    case DifficultyEnum.HARD:
+    default:
+      return 'You should be convinced to invest only for the very best pitches, and your probability to invest should be always above 10%';
+  }
+}
+
+export function getTemplateInitial(difficulty: DifficultyEnum) {
   return `
        CONTEXT: Project name: {projectName}. Pitch transcript: {transcript}\n\n
        
@@ -14,12 +28,13 @@ export function getTemplateInitial() {
        - Then ask 1 question about the idea. Ensure the question relates to what is in the CONTEXT.
        - End with a probability to invest, which should be between 0% - 100%. Using your own opinion to decide how much you are likely to invest in this project. If you give a probability of 80% of more, this means you want to invest in that project.\n\n
        - The result should always be some feedback, then a question and lastly your probability to invest.
+       - ${getDifficultyText(difficulty)}
        
        Format: {format_instructions}
   `;
 }
 
-export function getTemplateResponse() {
+export function getTemplateResponse(difficulty: DifficultyEnum) {
   return `
        CONTEXT: Project name: {projectName}. Pitch transcript: {transcript}\n\n
       
@@ -37,6 +52,7 @@ export function getTemplateResponse() {
        - Next ask a further and different question.
        - You should end with a probability to invest, which should be between 0% - 100%. Using your own opinion to decide how much you are likely to invest in this project. If you give a probability of 80% of more, this means you want to invest in that project.
        - Always consider the last probability from the conversation log when deciding on the next.
+       - ${getDifficultyText(difficulty)}
        
        Format: {format_instructions}
   `;

@@ -4,13 +4,14 @@ import { ConversationLogActorEnum } from '@/models/ai/enums/ConversationLogActor
 import { fixOutput, getModel, getOutputParser, getOutputParserInitial } from '@/models/ai/services/AiService';
 import { addToConversationLog, getConversationLogString } from '@/models/ai/services/ConversationLogService';
 import { getTemplateInitial, getTemplateResponse } from '@/models/ai/services/TemplateService';
+import { DifficultyEnum } from '@/models/projects/enums/DifficultyEnum';
 import { ProjectInterface } from '@/models/projects/interfaces/ProjectInterface';
 import { getProjectById } from '@/models/projects/services/ProjectService';
 
-async function getInitialPitchResponse(project: ProjectInterface) {
+async function getInitialPitchResponse(project: ProjectInterface, difficulty: DifficultyEnum) {
   const outputParser = getOutputParserInitial();
   const promptTemplate = new PromptTemplate({
-    template: getTemplateInitial(),
+    template: getTemplateInitial(difficulty),
     inputVariables: ['projectName', 'transcript'],
     partialVariables: {
       format_instructions: outputParser.getFormatInstructions(),
@@ -31,10 +32,15 @@ async function getInitialPitchResponse(project: ProjectInterface) {
   }
 }
 
-async function getNextPitchResponse(project: ProjectInterface, text: string, history: string) {
+async function getNextPitchResponse(
+  project: ProjectInterface,
+  difficulty: DifficultyEnum,
+  text: string,
+  history: string
+) {
   const outputParser = getOutputParser();
   const promptTemplate = new PromptTemplate({
-    template: getTemplateResponse(),
+    template: getTemplateResponse(difficulty),
     inputVariables: ['projectName', 'transcript', 'text', 'history'],
     partialVariables: {
       format_instructions: outputParser.getFormatInstructions(),
@@ -57,14 +63,14 @@ async function getNextPitchResponse(project: ProjectInterface, text: string, his
   }
 }
 
-export async function getPitchResponse(projectId: string, text?: string) {
+export async function getPitchResponse(projectId: string, difficulty: DifficultyEnum, text?: string) {
   const project = await getProjectById(projectId);
   if (!project) {
     throw new Error('Project not found.');
   }
 
   if (!text) {
-    const response = await getInitialPitchResponse(project);
+    const response = await getInitialPitchResponse(project, difficulty);
 
     await addToConversationLog(
       projectId,
@@ -79,7 +85,7 @@ export async function getPitchResponse(projectId: string, text?: string) {
 
   const history = await getConversationLogString(projectId);
 
-  const response = await getNextPitchResponse(project, text, history);
+  const response = await getNextPitchResponse(project, difficulty, text, history);
 
   await addToConversationLog(projectId, project.userId, ConversationLogActorEnum.USER, text);
   await addToConversationLog(
