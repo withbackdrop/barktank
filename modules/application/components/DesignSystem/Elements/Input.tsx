@@ -90,10 +90,8 @@ const Input = forwardRef<HTMLInputElement, Input>(
         />
         {showCount && maxLength && (
           <div
-            className={`absolute right-0 top-4 mr-3 mt-1 text-xs font-medium leading-none dark:bg-zinc-800 ${
-              inputValue && inputValue.length >= maxLength
-                ? 'font-semibold text-red-600'
-                : 'text-gray-300 dark:text-gray-400'
+            className={`absolute right-0 top-4 mr-3 mt-1 text-xs font-medium leading-none ${
+              inputValue && inputValue.length >= maxLength ? 'font-semibold text-red-600' : 'text-gray-300'
             }`}
           >
             {maxLength - (inputValue ? inputValue.length : 0)}

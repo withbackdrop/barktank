@@ -22,7 +22,6 @@ interface Text {
     | 'gray-600'
     | 'gray-700'
     | 'gray-800'
-    | 'gray-900'
     | 'yellow-900';
   fontWeight?: 'light' | 'normal' | 'medium' | 'semibold' | 'bold';
   lineClamp?: 'none' | 1 | 2 | 3 | 4;
@@ -82,10 +81,9 @@ const Text = forwardRef<any, Text>(
       'text-gray-600': color === 'gray-600',
       'text-gray-700': color === 'gray-700',
       'text-gray-800': color === 'gray-800',
-      'text-gray-900': color === 'gray-900',
       'text-yellow-900': color === 'yellow-900',
-      'text-gray-900 dark:text-white': color === 'default',
-      'text-white dark:text-gray-900': color === 'white',
+      'text-gray-900': color === 'default',
+      'text-white': color === 'white',
 
       'line-clamp-none': lineClamp === 'none',
       'line-clamp-1': lineClamp === 1,
