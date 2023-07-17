@@ -21,7 +21,7 @@ export async function addToConversationLog(
     userId,
     actor,
     text,
-    probability,
+    probability: probability || null,
   });
 }
 
