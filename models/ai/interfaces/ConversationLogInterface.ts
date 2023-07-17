@@ -7,6 +7,7 @@ export interface ConversationLogInterface {
   projectId: string;
   actor: ConversationLogActorEnum;
   text: string;
+  probability: number;
   createdAt: number;
   updatedAt: number;
 }

@@ -43,7 +43,9 @@ export async function getConversationLogString(projectId: string): Promise<strin
   }
 
   let text = '';
-  documents.forEach((document) => (text += `${document.actor}: ${document.text}\n`));
+  documents.forEach(
+    (document) => (text += `${document.actor}: ${document.text}. Probability to invest: ${document.probability}%.\n`)
+  );
 
   return text;
 }
