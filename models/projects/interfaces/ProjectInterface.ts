@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
 
 export interface ProjectInterface {
-  id: number;
+  id: string;
   userId: string;
   createdAt: number;
   updatedAt: number;

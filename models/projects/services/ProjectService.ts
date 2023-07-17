@@ -1,6 +1,8 @@
 import {
   createFirestoreCollectionDocument,
   getFirestoreCollectionDocumentById,
+  getFirestoreCollectionDocumentsByWhereConditions,
+  getWhereQueryConstraint,
 } from '@/models/application/services/FirestoreService';
 import { ProjectInterface } from '@/models/projects/interfaces/ProjectInterface';
 
@@ -24,4 +26,15 @@ export async function createProject(
 
 export async function getProjectById(projectId: string): Promise<ProjectInterface> {
   return getFirestoreCollectionDocumentById<ProjectInterface>(COLLECTION_NAME, projectId);
+}
+
+export async function getProjectsByUserId(userId: string): Promise<ProjectInterface[]> {
+  const documents = await getFirestoreCollectionDocumentsByWhereConditions<ProjectInterface>(COLLECTION_NAME, [
+    getWhereQueryConstraint('userId', '==', userId),
+  ]);
+  if (!documents) {
+    return null;
+  }
+
+  return documents;
 }

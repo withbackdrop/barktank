@@ -3,7 +3,7 @@ import { Metadata } from 'next';
 import { ContentLayout } from '@/modules/application/components/DesignSystem';
 import { Footer } from '@/modules/application/components/Footer';
 import { Header } from '@/modules/application/components/Header';
-import { CreateProject } from '@/modules/projects/components/CreateProject';
+import { ProjectsList } from '@/modules/projects/components/ProjectsList';
 
 export const metadata: Metadata = {
   title: 'Bark Tank',
@@ -17,9 +17,7 @@ export default async function HomePage() {
         <Header />
       </ContentLayout.Header>
       <ContentLayout.Content>
-        <div className="flex items-center justify-center">
-          <CreateProject />
-        </div>
+        <ProjectsList />
       </ContentLayout.Content>
       <ContentLayout.Footer>
         <Footer />
