@@ -16,13 +16,13 @@ interface Hyperlink {
 const Hyperlink = forwardRef<HTMLAnchorElement, any>(
   ({ children, color = 'inherit', theme = 'bare', size = 'm', ...others }: Hyperlink, ref) => {
     const linkClassnames = classNames('cursor-pointer inline-flex', {
-      'border-b border-gray-200 dark:border-zinc-600': theme === 'decorated',
+      'border-b border-gray-200': theme === 'decorated',
       'text-xs font-medium': size === 'xs',
       'text-sm font-medium': size === 's',
       'text-base font-medium': size === 'm',
       'text-lg font-semibold': size === 'l',
-      'text-gray-400 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-100': color === 'gray',
-      'text-gray-800 hover:text-gray-900 dark:text-gray-200 dark:hover:text-white': color === 'default',
+      'text-gray-400 hover:text-gray-700': color === 'gray',
+      'text-blue-500 hover:text-blue-700': color === 'default',
     });
 
     let Tag: any = 'a';

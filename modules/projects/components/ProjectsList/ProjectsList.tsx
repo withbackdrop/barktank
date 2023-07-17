@@ -18,7 +18,7 @@ const ProjectsList = () => {
       </Heading>
       {isLoading && <Spinner size="l" align="center" />}
       {!isLoading && projects?.length > 0 && (
-        <div className="grid grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-4">
           {projects.map((project) => (
             <ProjectListItem key={project.id} project={project} />
           ))}
