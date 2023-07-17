@@ -4,6 +4,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 import { ConversationLogActorEnum } from '@/models/ai/enums/ConversationLogActorEnum';
 import { deleteConversationLogByProjectId } from '@/models/ai/services/ConversationLogService';
+import { DifficultyEnum } from '@/models/projects/enums/DifficultyEnum';
 import { PitchInternalApiService } from '@/models/projects/services/internalApi/PitchInternalApiService';
 import { notifyAboutError } from '@/modules/application/utils/notifyAboutError';
 import { PROBABILITY_PITCH_ACCEPT } from '@/modules/projects/components/PitchFlow/utils/constants';
@@ -15,7 +16,7 @@ interface ConversationInterface {
   probability?: number;
 }
 
-const usePitch = (projectId: string) => {
+const usePitch = (projectId: string, difficulty: DifficultyEnum) => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [willInvest, setWillInvest] = useState<boolean>(null);
   const [isThinking, setIsThinking] = useState<boolean>(false);
@@ -27,7 +28,7 @@ const usePitch = (projectId: string) => {
 
       try {
         const pitchInternalService = new PitchInternalApiService(true);
-        const response = await pitchInternalService.getPitchResponse(projectId);
+        const response = await pitchInternalService.getPitchResponse(projectId, difficulty);
 
         setIsLoading(false);
         setConversations((_conversations) => [
@@ -54,7 +55,7 @@ const usePitch = (projectId: string) => {
     setIsThinking(true);
     try {
       const pitchInternalService = new PitchInternalApiService(true);
-      const response = await pitchInternalService.getPitchResponse(projectId, text);
+      const response = await pitchInternalService.getPitchResponse(projectId, difficulty, text);
       if (response.probability >= PROBABILITY_PITCH_ACCEPT) {
         setWillInvest(true);
         setIsThinking(false);

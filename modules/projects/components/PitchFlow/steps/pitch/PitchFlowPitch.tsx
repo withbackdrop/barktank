@@ -11,8 +11,8 @@ import usePitch from '@/modules/projects/hooks/usePitch';
 import ConversationItemSystem from './ConversationItemSystem';
 import ConversationItemUser from './ConversationItemUser';
 
-const PitchFlowPitch = ({ flowData: { project } }: any) => {
-  const { conversations, isLoading, getResponse, willInvest, isThinking } = usePitch(project.id);
+const PitchFlowPitch = ({ flowData: { project, difficulty } }: any) => {
+  const { conversations, isLoading, getResponse, willInvest, isThinking } = usePitch(project.id, difficulty);
 
   useEffect(() => {
     if (willInvest === true) {

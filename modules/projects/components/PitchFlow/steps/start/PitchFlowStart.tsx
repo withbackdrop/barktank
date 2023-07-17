@@ -1,4 +1,8 @@
-import { Card, Text, Heading, Button } from '@/modules/application/components/DesignSystem';
+import { Form, Formik } from 'formik';
+
+import { DifficultyEnum } from '@/models/projects/enums/DifficultyEnum';
+import { Card, Select, Text, Heading, Button } from '@/modules/application/components/DesignSystem';
+import { FormikSelectField } from '@/modules/common/components/Formik';
 
 const PitchFlowStart = ({ flowData: { project }, onAccept }: any) => (
   <Card elevation="l">
@@ -10,9 +14,28 @@ const PitchFlowStart = ({ flowData: { project }, onAccept }: any) => (
         <Text textAlign="center" size="xxl" spacing="l">
           Let's raise the woof!
         </Text>
-        <Button size="l" onClick={onAccept}>
-          Let's Go!
-        </Button>
+        <Formik
+          onSubmit={async ({ difficulty }) => onAccept({ difficulty })}
+          initialValues={{
+            difficulty: DifficultyEnum.NORMAL,
+          }}
+          validateOnBlur={true}
+        >
+          {() => (
+            <Form>
+              <div className="flex space-x-2">
+                <FormikSelectField name="difficulty">
+                  <Select.Option value={DifficultyEnum.EASY}>Easy</Select.Option>
+                  <Select.Option value={DifficultyEnum.NORMAL}>Normal</Select.Option>
+                  <Select.Option value={DifficultyEnum.HARD}>Hard</Select.Option>
+                </FormikSelectField>
+                <Button size="m" type="submit">
+                  Let's Go!
+                </Button>
+              </div>
+            </Form>
+          )}
+        </Formik>
       </div>
       <div>
         <Heading textAlign="left" size="xl" spacing="l">
