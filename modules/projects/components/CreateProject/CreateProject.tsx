@@ -10,11 +10,13 @@ const CreateProject = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   return (
     <Card>
-      <Heading level={1} size="xl" spacing="xl" textAlign="center">
-        Create new project pitch
-      </Heading>
-      <Button onClick={() => setIsModalOpen(true)}>Create new project</Button>
-      <CreateProjectModal isOpen={isModalOpen} onRequestClose={() => setIsModalOpen(false)} />
+      <div className="flex h-full flex-col justify-center">
+        <Heading level={1} size="xl" spacing="m" textAlign="center">
+          Create new project pitch
+        </Heading>
+        <Button onClick={() => setIsModalOpen(true)}>Create</Button>
+        <CreateProjectModal isOpen={isModalOpen} onRequestClose={() => setIsModalOpen(false)} />
+      </div>
     </Card>
   );
 };
