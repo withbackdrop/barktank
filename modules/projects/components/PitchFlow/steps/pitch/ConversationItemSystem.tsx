@@ -2,15 +2,15 @@ import { Text, Note } from '@/modules/application/components/DesignSystem';
 import SlowText from '@/modules/common/components/SlowText';
 
 const getColor = (probability: number) => {
-  if (probability < 50) {
+  if (probability <= 50) {
     return 'red';
   }
 
-  if (probability >= 50 && probability < 60) {
+  if (probability > 50 && probability <= 60) {
     return 'yellow';
   }
 
-  if (probability >= 60 && probability < 80) {
+  if (probability > 60 && probability < 80) {
     return 'blue';
   }
 
