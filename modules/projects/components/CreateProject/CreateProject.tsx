@@ -14,7 +14,9 @@ const CreateProject = () => {
         <Heading level={1} size="xl" spacing="m" textAlign="center">
           Create new project pitch
         </Heading>
-        <Button onClick={() => setIsModalOpen(true)}>Create</Button>
+        <Button theme="ghost" onClick={() => setIsModalOpen(true)}>
+          Create
+        </Button>
         <CreateProjectModal isOpen={isModalOpen} onRequestClose={() => setIsModalOpen(false)} />
       </div>
     </Card>
