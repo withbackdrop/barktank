@@ -6,11 +6,11 @@ import { Button, Card, Text } from '@/modules/application/components/DesignSyste
 
 const ProjectListItem = ({ project }: { project: ProjectInterface }) => (
   <Card>
-    <Text size="l" fontWeight="bold">
+    <Text size="l" fontWeight="bold" spacing="m">
       {project.name}
     </Text>
-    {project.description && <Text>{project.description}</Text>}
-    <Text>{project.youtubeUrl}</Text>
+    {project.description && <Text spacing="s">{project.description}</Text>}
+    <Text spacing="s">{project.youtubeUrl}</Text>
     <Button href={getUrlProject(project.id)}>Pitch</Button>
   </Card>
 );

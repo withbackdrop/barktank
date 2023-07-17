@@ -1,21 +1,21 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
+import { useState } from 'react';
 
-import { getUrlProject } from '@/models/application/services/UrlService';
-import { Heading } from '@/modules/application/components/DesignSystem/Elements';
-
-import CreateProjectForm from './CreateProjectForm';
+import { Card } from '@/modules/application/components/DesignSystem';
+import { Button, Heading } from '@/modules/application/components/DesignSystem/Elements';
+import CreateProjectModal from '@/modules/projects/components/CreateProject/CreateProjectModal';
 
 const CreateProject = () => {
-  const { push } = useRouter();
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   return (
-    <div className="w-[400px]">
-      <Heading level={1} size="xl" spacing="xl">
+    <Card>
+      <Heading level={1} size="xl" spacing="xl" textAlign="center">
         Create new project pitch
       </Heading>
-      <CreateProjectForm onCreated={(documentId) => push(getUrlProject(documentId))} />
-    </div>
+      <Button onClick={() => setIsModalOpen(true)}>Create new project</Button>
+      <CreateProjectModal isOpen={isModalOpen} onRequestClose={() => setIsModalOpen(false)} />
+    </Card>
   );
 };
 
