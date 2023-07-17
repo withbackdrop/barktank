@@ -2,6 +2,7 @@
 
 import { Heading } from '@/modules/application/components/DesignSystem/Elements';
 import { useSessionContext } from '@/modules/application/contexts/SessionContext';
+import Spinner from '@/modules/common/components/animations/Spinner';
 import { CreateProject } from '@/modules/projects/components/CreateProject';
 import useUserProjects from '@/modules/projects/hooks/useUserProjects';
 
@@ -15,6 +16,7 @@ const ProjectsList = () => {
       <Heading level={1} size="xl" spacing="xl">
         Your projects
       </Heading>
+      {isLoading && <Spinner size="l" align="center" />}
       {!isLoading && projects?.length > 0 && (
         <div className="grid grid-cols-4 gap-4">
           {projects.map((project) => (
