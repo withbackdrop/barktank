@@ -25,9 +25,9 @@ const PitchFlowStart = ({ flowData: { project }, onAccept }: any) => (
             <Form>
               <div className="flex space-x-2">
                 <FormikSelectField name="difficulty">
-                  <Select.Option value={DifficultyEnum.EASY}>Easy</Select.Option>
-                  <Select.Option value={DifficultyEnum.NORMAL}>Normal</Select.Option>
-                  <Select.Option value={DifficultyEnum.HARD}>Hard</Select.Option>
+                  <Select.Option value={DifficultyEnum.EASY}>Difficulty: Easy</Select.Option>
+                  <Select.Option value={DifficultyEnum.NORMAL}>Difficulty: Normal</Select.Option>
+                  <Select.Option value={DifficultyEnum.HARD}>Difficulty: Hard</Select.Option>
                 </FormikSelectField>
                 <Button size="m" type="submit">
                   Let's Go!
