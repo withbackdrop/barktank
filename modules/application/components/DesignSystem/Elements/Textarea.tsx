@@ -36,11 +36,10 @@ const Textarea = forwardRef<HTMLTextAreaElement, Textarea>(
     ref
   ) => {
     const inputClassNames = classNames(
-      'w-full bg-transparent border-gray-300 text-gray-900 placeholder-gray-400 dark:placeholder-zinc-500 font-medium rounded-lg border',
+      'w-full bg-transparent border-gray-300 text-gray-900 placeholder-gray-400 font-medium rounded-lg border',
       {
-        'resize-none overflow-hidden dark:text-gray-50': true,
-        'focus:ring-transparent dark:border-zinc-600 focus:border-yellow-400 dark:focus:border-zinc-500':
-          status !== 'invalid',
+        'resize-none overflow-hidden': true,
+        'focus:ring-transparent focus:border-blue-400': status !== 'invalid',
         'border-pink-600 focus:border-pink-600 focus:ring-pink-600': status === 'invalid',
         'text-sm': size === 's',
         'text-base min-h-[48px]': size === 'm',
