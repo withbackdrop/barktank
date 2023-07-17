@@ -1,9 +1,7 @@
-import { ChatOpenAI } from 'langchain/chat_models/openai';
-import { OutputFixingParser } from 'langchain/output_parsers';
 import { PromptTemplate } from 'langchain/prompts';
 
 import { ConversationLogActorEnum } from '@/models/ai/enums/ConversationLogActorEnum';
-import { getModel, getOutputParser, getOutputParserInitial } from '@/models/ai/services/AiService';
+import { fixOutput, getModel, getOutputParser, getOutputParserInitial } from '@/models/ai/services/AiService';
 import { addToConversationLog, getConversationLogString } from '@/models/ai/services/ConversationLogService';
 import { getTemplateInitial, getTemplateResponse } from '@/models/ai/services/TemplateService';
 import { ProjectInterface } from '@/models/projects/interfaces/ProjectInterface';
@@ -29,12 +27,7 @@ async function getInitialPitchResponse(project: ProjectInterface) {
   try {
     return await outputParser.parse(result);
   } catch (e) {
-    console.log(e, 'failed');
-    const fixParser = OutputFixingParser.fromLLM(
-      new ChatOpenAI({ openAIApiKey: process.env.NEXT_OPEN_API_KEY, temperature: 0 }),
-      outputParser
-    );
-    return await fixParser.parse(result);
+    return await fixOutput(outputParser, result);
   }
 }
 
@@ -60,12 +53,7 @@ async function getNextPitchResponse(project: ProjectInterface, text: string, his
   try {
     return await outputParser.parse(result);
   } catch (e) {
-    console.log(e, 'failed');
-    const fixParser = OutputFixingParser.fromLLM(
-      new ChatOpenAI({ openAIApiKey: process.env.NEXT_OPEN_API_KEY, temperature: 0 }),
-      outputParser
-    );
-    return await fixParser.parse(result);
+    return await fixOutput(outputParser, result);
   }
 }
 

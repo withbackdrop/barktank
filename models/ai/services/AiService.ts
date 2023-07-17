@@ -1,5 +1,6 @@
+import { ChatOpenAI } from 'langchain/chat_models/openai';
 import { OpenAI } from 'langchain/llms/openai';
-import { StructuredOutputParser } from 'langchain/output_parsers';
+import { OutputFixingParser, StructuredOutputParser } from 'langchain/output_parsers';
 import { z } from 'zod';
 
 export function getOutputParserInitial() {
@@ -28,4 +29,12 @@ export function getOutputParser() {
 
 export function getModel() {
   return new OpenAI({ openAIApiKey: process.env.NEXT_OPEN_API_KEY, temperature: 0.35 });
+}
+
+export async function fixOutput(outputParser, result: string) {
+  const fixParser = OutputFixingParser.fromLLM(
+    new ChatOpenAI({ openAIApiKey: process.env.NEXT_OPEN_API_KEY, temperature: 0 }),
+    outputParser
+  );
+  return fixParser.parse(result);
 }
