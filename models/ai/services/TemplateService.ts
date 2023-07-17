@@ -5,10 +5,10 @@ function getDifficultyText(difficulty: DifficultyEnum) {
     case DifficultyEnum.EASY:
       return 'You should be easily convinced to invest at the end, meaning your probability to invest should always be above 50%';
     case DifficultyEnum.NORMAL:
-      return 'You should be an average investor, not too hard and not too easy to convince to invest, and your probability to invest should be always above 30%';
+      return '';
     case DifficultyEnum.HARD:
     default:
-      return 'You should be convinced to invest only for the very best pitches, and your probability to invest should be always above 10%';
+      return 'You are hard to please. Your probability to invest should be always above 10% but hardly go above 80%.';
   }
 }
 
