@@ -64,7 +64,7 @@ const CreateProjectForm = ({ onCreated }: { onCreated: (string) => any }) => {
           <Stack spacing="l">
             <Stack.Item>
               <div className="w-full">
-                <FormikInputField label="Name" name="name" placeholder="Enter the projects name" />
+                <FormikInputField label="Project name" name="name" placeholder="How is your project called?" />
               </div>
             </Stack.Item>
             <Stack.Item>
@@ -72,7 +72,7 @@ const CreateProjectForm = ({ onCreated }: { onCreated: (string) => any }) => {
                 <FormikInputField
                   label="YouTube URL"
                   name="youtubeUrl"
-                  placeholder="Enter a YouTube URL to the pitch"
+                  placeholder="Enter a YouTube URL to the pitch or demo video"
                 />
               </div>
             </Stack.Item>
@@ -88,7 +88,7 @@ const CreateProjectForm = ({ onCreated }: { onCreated: (string) => any }) => {
             <Stack.Item>
               <div className="flex justify-end">
                 <Button size="m" type="submit" status={isSubmitting ? 'busy' : ''}>
-                  Create
+                  Start
                 </Button>
               </div>
             </Stack.Item>

@@ -1,5 +1,7 @@
 'use client';
 
+import { PowerIcon } from '@heroicons/react/20/solid';
+
 import { Button } from '@/modules/application/components/DesignSystem';
 import { useSessionContext } from '@/modules/application/contexts/SessionContext';
 
@@ -11,7 +13,8 @@ const Header = () => {
       <div />
       {user && (
         <div className="flex space-x-4">
-          <Button size="s" theme="ghost" onClick={logout}>
+          <Button theme="bare" onClick={logout}>
+            <Button.Icon icon={<PowerIcon className="w-4" />} />
             Logout
           </Button>
         </div>

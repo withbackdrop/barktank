@@ -10,7 +10,7 @@ const mapThemeBorder = {
 
 const mapThemeColor = {
   solid: {
-    default: `text-white bg-orange-500 disabled:bg-gray-150 disabled:text-gray-400 shadow-xl
+    default: `text-white bg-orange-500 disabled:bg-gray-150 disabled:text-gray-400
     hover:bg-orange-600 active:bg-orange-700
     focus:bg-orange-700 focus:shadow-outline-primary`,
     red: `text-white bg-red-500 disabled:bg-red-400
@@ -30,7 +30,7 @@ const mapThemeColor = {
     gray: `text-gray-700 border-gray-300 active:bg-zinc-600 hover:border-gray-500`,
   },
   bare: {
-    default: 'text-blue-500 hover:text-blue-700',
+    default: 'text-orange-500 hover:text-orange-600',
     red: 'text-red-500',
     green: 'text-green-500',
     white: 'text-white',
