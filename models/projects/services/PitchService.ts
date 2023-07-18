@@ -1,8 +1,9 @@
 import { PromptTemplate } from 'langchain/prompts';
 
 import { ConversationLogActorEnum } from '@/models/ai/enums/ConversationLogActorEnum';
+import { ConversationLogInterface } from '@/models/ai/interfaces/ConversationLogInterface';
 import { fixOutput, getModel, getOutputParser, getOutputParserInitial } from '@/models/ai/services/AiService';
-import { addToConversationLog, getConversationLogString } from '@/models/ai/services/ConversationLogService';
+import { addToConversationLog, getConversationLogsByProjectId } from '@/models/ai/services/ConversationLogService';
 import { getTemplateInitial, getTemplateResponse } from '@/models/ai/services/TemplateService';
 import { DifficultyEnum } from '@/models/projects/enums/DifficultyEnum';
 import { ProjectInterface } from '@/models/projects/interfaces/ProjectInterface';
@@ -36,22 +37,23 @@ async function getNextPitchResponse(
   project: ProjectInterface,
   difficulty: DifficultyEnum,
   text: string,
-  history: string
+  conversationLog: ConversationLogInterface[]
 ) {
   const outputParser = getOutputParser();
   const promptTemplate = new PromptTemplate({
     template: getTemplateResponse(difficulty),
-    inputVariables: ['projectName', 'transcript', 'text', 'history'],
+    inputVariables: ['projectName', 'transcript', 'text', 'lastProbability'],
     partialVariables: {
       format_instructions: outputParser.getFormatInstructions(),
     },
   });
 
+  const lastProbability = conversationLog[conversationLog.length - 1].probability;
   const input = await promptTemplate.format({
     projectName: project.name,
     transcript: project.transcript,
+    lastProbability,
     text,
-    history,
   });
 
   const result = await getModel().call(input);
@@ -83,9 +85,9 @@ export async function getPitchResponse(projectId: string, difficulty: Difficulty
     return response?.[0];
   }
 
-  const history = await getConversationLogString(projectId);
+  const conversationLog = await getConversationLogsByProjectId(projectId);
 
-  const response = await getNextPitchResponse(project, difficulty, text, history);
+  const response = await getNextPitchResponse(project, difficulty, text, conversationLog);
 
   await addToConversationLog(projectId, project.userId, ConversationLogActorEnum.USER, text);
   await addToConversationLog(
