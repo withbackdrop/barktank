@@ -7,7 +7,7 @@ import Heartbeat from './Heartbeat';
 const ConversationItemSystem = ({ text, probability, isLastAnswer }) => (
   <div className="flex space-x-4">
     <div className="flex flex-col items-center">
-      <Avatar src={barkAvatar} size="l" />
+      <Avatar src={barkAvatar} size="l" alt="Bark" />
       {isLastAnswer && <Heartbeat probability={probability} />}
     </div>
 

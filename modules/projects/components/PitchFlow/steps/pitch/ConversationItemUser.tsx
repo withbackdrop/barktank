@@ -8,7 +8,7 @@ const ConversationItemUser = ({ text }) => (
         {text}
       </Text>
     </div>
-    <Avatar size="l" />
+    <Avatar size="l" alt="You" />
   </div>
 );
 

@@ -3,7 +3,7 @@ import { Avatar } from '@/modules/application/components/DesignSystem';
 
 const ConversationItemThinking = () => (
   <div className="flex space-x-4">
-    <Avatar src={barkAvatar} size="l" />
+    <Avatar src={barkAvatar} size="l" alt="Bark" />
     <div className="max-w-md self-start rounded-xl bg-zinc-100 px-4 py-1">
       <div className="animate-bounce text-3xl font-bold text-orange-500">...</div>
     </div>
