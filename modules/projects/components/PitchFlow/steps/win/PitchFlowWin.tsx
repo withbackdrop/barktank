@@ -4,7 +4,6 @@ import Confetti from 'canvas-confetti';
 import Image from 'next/image';
 
 import { Card, Heading, Stack } from '@/modules/application/components/DesignSystem';
-import usePitch from '@/modules/projects/hooks/usePitch';
 
 const moneyGifs = [
   'https://media.giphy.com/media/3o6gDWzmAzrpi5DQU8/giphy.gif',
@@ -14,9 +13,7 @@ const moneyGifs = [
   'https://media.giphy.com/media/MFsqcBSoOKPbjtmvWz/giphy.gif',
 ];
 
-const PitchFlowWin = ({ flowData: { project, difficulty } }: any) => {
-  const { conversations, isLoading, getResponse, willInvest, isThinking } = usePitch(project.id, difficulty);
-
+const PitchFlowWin = () => {
   useEffect(() => {
     Confetti({
       spread: 300,

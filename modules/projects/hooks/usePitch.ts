@@ -41,7 +41,7 @@ const usePitch = (projectId: string, difficulty: DifficultyEnum) => {
           },
         ]);
       } catch (e) {
-        notifyAboutError('Something went wrong. Please try again.');
+        notifyAboutError(e, true, 'Something went wrong. Please try again.');
       }
     })();
   }, []);
@@ -80,7 +80,7 @@ const usePitch = (projectId: string, difficulty: DifficultyEnum) => {
         },
       ]);
     } catch (e) {
-      notifyAboutError('Something went wrong. Please try again.');
+      notifyAboutError(e, true, 'Something went wrong. Please try again.');
     }
   };
 
