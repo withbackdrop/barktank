@@ -11,7 +11,7 @@ import { Footer } from '@/modules/application/components/Footer';
 import { Header } from '@/modules/application/components/Header';
 import LoginButton from '@/modules/application/components/LoginButton';
 
-import bgEntrance from './images/entrance.png';
+import bgEntrance from '@/images/entrance.png';
 
 export const metadata: Metadata = {
   title: 'Bark Tank',
@@ -33,12 +33,13 @@ export default async function IndexPage() {
         <Header />
       </ContentLayout.Header>
       <ContentLayout.Content>
-        <div className="relative m-auto w-full max-w-3xl overflow-hidden rounded-xl border-8">
+        <div className="relative m-auto w-full max-w-3xl overflow-hidden rounded-xl border-8 border-zinc-800">
           <Image src={bgEntrance} alt="Enter Bark Tank" />
-          <div className="absolute bottom-0 z-10 flex w-full flex-col items-center space-y-4 px-24 py-6">
+          <div className="absolute bottom-0 z-10 flex w-full flex-col items-center space-y-4 px-24 py-4">
             <LoginButton />
             <Text textAlign="center" size="m" fontWeight="bold">
-              You need to log in with Twitter to play Bark Tank. We do not post or read any data from your account.
+              You need to log in with Twitter to play Bark Tank. <br />
+              We do not post or read any data from your account.
             </Text>
           </div>
         </div>

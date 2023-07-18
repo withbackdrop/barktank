@@ -1,19 +1,29 @@
 import { Form, Formik } from 'formik';
+import Image from 'next/image';
 
+import barkFull from '@/images/bark-full.png';
 import { DifficultyEnum } from '@/models/projects/enums/DifficultyEnum';
-import { Card, Select, Text, Heading, Button } from '@/modules/application/components/DesignSystem';
+import { Card, Select, Text, Heading, Button, Stack } from '@/modules/application/components/DesignSystem';
 import { FormikSelectField } from '@/modules/common/components/Formik';
 
 const PitchFlowStart = ({ flowData: { project }, onAccept }: any) => (
   <Card elevation="l">
-    <div className="flex space-x-16">
-      <div className="flex min-w-fit flex-col items-center justify-center">
+    <Stack alignItems="center">
+      <Stack.Item>
+        <Image src={barkFull} alt="Bark Cuban" width={256} height={256} className="rounded-lg" />
+      </Stack.Item>
+      <Stack.Item>
         <Heading textAlign="center" size="xxl" spacing="s">
-          Welcome to the Bark Tank
+          Bark Cuban will see you now.
         </Heading>
-        <Text textAlign="center" size="xxl" spacing="l">
-          Let's raise the woof!
+      </Stack.Item>
+      <Stack.Item>
+        <Text textAlign="center" spacing="l">
+          He will watch your pitch demo video and decide if he wants to invest in your project. You get a few chances to
+          convince him and win the game, but beware: he is a tough cookie.
         </Text>
+      </Stack.Item>
+      <Stack.Item>
         <Formik
           onSubmit={async ({ difficulty }) => onAccept({ difficulty })}
           initialValues={{
@@ -23,40 +33,24 @@ const PitchFlowStart = ({ flowData: { project }, onAccept }: any) => (
         >
           {() => (
             <Form>
-              <div className="flex space-x-2">
-                <FormikSelectField name="difficulty">
-                  <Select.Option value={DifficultyEnum.EASY}>Difficulty: Easy</Select.Option>
-                  <Select.Option value={DifficultyEnum.NORMAL}>Difficulty: Normal</Select.Option>
-                  <Select.Option value={DifficultyEnum.HARD}>Difficulty: Hard</Select.Option>
+              <div className="flex w-full flex-col space-y-2">
+                <FormikSelectField name="difficulty" label="Difficulty">
+                  <Select.Option value={DifficultyEnum.EASY}>🥺 Puppy</Select.Option>
+                  <Select.Option value={DifficultyEnum.NORMAL}>🐶 Labradoodle</Select.Option>
+                  <Select.Option value={DifficultyEnum.HARD}>🙅‍♀️ Pitbull</Select.Option>
                 </FormikSelectField>
-                <Button size="m" type="submit">
-                  Let's Go!
+                <Button size="m" type="submit" width="full">
+                  Let's woof!
                 </Button>
               </div>
             </Form>
           )}
         </Formik>
-      </div>
-      <div>
-        <Heading textAlign="left" size="xl" spacing="l">
-          Your project pitch
-        </Heading>
-        <Text textAlign="left" size="xl" spacing="xs">
-          <strong>Name: </strong>
-          {project.name}
-        </Text>
-        {project.description && (
-          <Text textAlign="left" size="xl" spacing="xs">
-            <strong>Description: </strong>
-            {project.description}
-          </Text>
-        )}
-        <Text textAlign="left" size="xl" spacing="xs">
-          <strong>Pitch video: </strong>
-          {project.youtubeUrl}
-        </Text>
-      </div>
-    </div>
+      </Stack.Item>
+      <Stack.Item>
+        <Text>You're pitching {project.name}. Good luck!</Text>
+      </Stack.Item>
+    </Stack>
   </Card>
 );
 

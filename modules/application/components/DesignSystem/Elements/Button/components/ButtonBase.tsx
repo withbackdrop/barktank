@@ -10,7 +10,7 @@ const mapThemeBorder = {
 
 const mapThemeColor = {
   solid: {
-    default: `text-white bg-orange-500 disabled:bg-gray-150 disabled:text-gray-400
+    default: `text-white bg-orange-500 disabled:bg-gray-150 disabled:text-gray-400 shadow-xl
     hover:bg-orange-600 active:bg-orange-700
     focus:bg-orange-700 focus:shadow-outline-primary`,
     red: `text-white bg-red-500 disabled:bg-red-400
@@ -61,9 +61,9 @@ const mapBaseSize = {
     none: 'h-12',
   },
   l: {
-    full: 'h-16 px-5 text-2xl w-full rounded-2xl',
-    auto: 'h-16 px-5 text-2xl rounded-2xl',
-    square: 'h-16 w-16 text-2xl rounded-2xl shrink-0',
+    full: 'h-16 px-8 text-2xl w-full rounded-xl',
+    auto: 'h-16 px-8 text-2xl rounded-xl',
+    square: 'h-16 w-16 text-2xl rounded-xl shrink-0',
     round: 'h-16 w-16 text-2xl rounded-full shrink-0',
     none: 'h-16 text-2xl',
   },

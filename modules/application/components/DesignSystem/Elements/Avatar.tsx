@@ -2,7 +2,7 @@
 
 import { useState, forwardRef } from 'react';
 
-import { CubeIcon } from '@heroicons/react/24/solid';
+import { UserIcon } from '@heroicons/react/24/solid';
 import classNames from 'classnames';
 import Image from 'next/image';
 
@@ -56,7 +56,7 @@ const Avatar = forwardRef<any, any>(
 
     return (
       <div className={avatarClassNames} ref={ref}>
-        {(!src || isError) && <CubeIcon className="w-3/4 text-gray-400 dark:text-gray-500" />}
+        {(!src || isError) && <UserIcon className="w-3/4 text-gray-400 dark:text-gray-500" />}
 
         {src && !isError && isSafeDomain && (
           <Image

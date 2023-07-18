@@ -19,7 +19,7 @@ export default async function projectPage({ params: { projectId } }: { params: {
         <Header />
       </ContentLayout.Header>
       <ContentLayout.Content>
-        <div className="m-auto flex min-h-screen max-w-4xl flex-col">
+        <div className="m-auto flex min-h-screen max-w-2xl flex-col">
           <div className="mb-5">
             <Button href={getUrlHome()} theme="bare">
               <Button.Icon icon={<ArrowLeftIcon className="w-5" />} />

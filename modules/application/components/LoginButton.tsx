@@ -8,15 +8,15 @@ const LoginButton = () => {
 
   if (user) {
     return (
-      <Button theme="ghost" onClick={logout} size="xl">
+      <Button theme="ghost" onClick={logout} size="l">
         Logout
       </Button>
     );
   }
 
   return (
-    <Button onClick={login} size="xl">
-      Enter with Twitter
+    <Button onClick={login} size="l">
+      Login with Twitter
     </Button>
   );
 };

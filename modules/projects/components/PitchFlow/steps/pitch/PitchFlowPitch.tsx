@@ -1,27 +1,22 @@
 import { useEffect } from 'react';
 
-import Confetti from 'canvas-confetti';
-
 import { ConversationLogActorEnum } from '@/models/ai/enums/ConversationLogActorEnum';
-import { Card, Note } from '@/modules/application/components/DesignSystem';
+import { Card } from '@/modules/application/components/DesignSystem';
 import Spinner from '@/modules/common/components/animations/Spinner';
 import PitchReplyForm from '@/modules/projects/components/PitchFlow/PitchReplyForm';
 import usePitch from '@/modules/projects/hooks/usePitch';
 
 import ConversationItemSystem from './ConversationItemSystem';
+import ConversationItemThinking from './ConversationItemThinking';
 import ConversationItemUser from './ConversationItemUser';
 
-const PitchFlowPitch = ({ flowData: { project, difficulty } }: any) => {
+const PitchFlowPitch = ({ flowData: { project, difficulty }, onAccept, onReject }: any) => {
   const { conversations, isLoading, getResponse, willInvest, isThinking } = usePitch(project.id, difficulty);
 
   useEffect(() => {
     if (willInvest === true) {
-      Confetti({
-        spread: 300,
-        particleCount: 250,
-        ticks: 300,
-      });
-    }
+      onAccept();
+    } else if (willInvest === false) onReject();
   }, [willInvest]);
 
   if (isLoading) {
@@ -33,9 +28,9 @@ const PitchFlowPitch = ({ flowData: { project, difficulty } }: any) => {
   }
 
   return (
-    <Card elevation="l">
-      <div className="flex flex-col space-y-4">
-        {conversations.map((conversation) => {
+    <Card elevation="l" isOverflowHidden={true}>
+      <div className="flex flex-col space-y-8">
+        {conversations.map((conversation, index) => {
           if (conversation.actor === ConversationLogActorEnum.USER) {
             return <ConversationItemUser key={conversation.id} text={conversation.text} />;
           }
@@ -45,25 +40,15 @@ const PitchFlowPitch = ({ flowData: { project, difficulty } }: any) => {
               key={conversation.id}
               text={conversation.text}
               probability={conversation.probability}
+              isLastAnswer={index === conversations.length - 1}
             />
           );
         })}
         {willInvest === null &&
           conversations.length > 0 &&
-          conversations[conversations.length - 1].actor === ConversationLogActorEnum.SYSTEM && (
-            <PitchReplyForm onSubmit={getResponse} />
-          )}
-        {isThinking && <Spinner />}
-        {willInvest === true && (
-          <Note color="green" align="center">
-            Congrats! I have decided to invest!
-          </Note>
-        )}
-        {willInvest === false && (
-          <Note color="red" align="center">
-            Unfortunately I have decided not to invest!
-          </Note>
-        )}
+          conversations[conversations.length - 1].actor === ConversationLogActorEnum.SYSTEM &&
+          !isThinking && <PitchReplyForm onSubmit={getResponse} />}
+        {isThinking && <ConversationItemThinking />}
       </div>
     </Card>
   );

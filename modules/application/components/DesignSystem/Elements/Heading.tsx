@@ -3,7 +3,7 @@ import classNames from 'classnames';
 interface Heading {
   children: any;
   spacing?: 'none' | 's' | 'm' | 'l' | 'xl';
-  size?: 'inherit' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+  size?: 'inherit' | 's' | 'm' | 'l' | 'xl' | 'xxl' | 'xxxl';
   textAlign?: 'left' | 'center' | 'right';
   color?: 'inherit' | 'white' | 'black';
   level?: 0 | 1 | 2 | 3 | 4;
@@ -39,6 +39,7 @@ const Heading = ({
     'text-xl': size === 'l',
     'text-2xl': size === 'xl',
     'text-3xl': size === 'xxl',
+    'text-4xl': size === 'xxxl',
 
     'leading-tight tracking-tight': level === 0 || level === 1 || level === 2,
     'leading-snug': level === 3 || level === 4,
