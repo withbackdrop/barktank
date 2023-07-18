@@ -33,7 +33,7 @@ export function getOutputParser() {
 }
 
 export function getModel() {
-  return new OpenAI({ openAIApiKey: process.env.NEXT_OPEN_API_KEY, temperature: 0.35 });
+  return new OpenAI({ openAIApiKey: process.env.NEXT_OPEN_API_KEY, temperature: 0.7 });
 }
 
 export async function fixOutput(outputParser, result: string) {
