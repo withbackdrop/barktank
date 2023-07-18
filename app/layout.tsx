@@ -15,7 +15,7 @@ const satoshi = localFont({ src: '../fonts/satoshi/Satoshi-Variable.woff2', vari
 export default async function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
-      <body className={`${satoshi.variable} bg-gray-50 font-sans text-gray-900`}>
+      <body className={`${satoshi.variable} bg-zinc-900 font-sans text-zinc-50`}>
         <SessionContextProvider>
           {children}
           <Toaster />

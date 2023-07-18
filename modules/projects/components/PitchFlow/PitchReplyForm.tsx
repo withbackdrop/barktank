@@ -36,12 +36,12 @@ const PitchReplyForm = ({ onSubmit }: { onSubmit: (text) => any }) => (
   >
     {({ isSubmitting }) => (
       <Form>
-        <div className="flex w-full grow space-x-4">
+        <div className="flex w-full flex-col space-y-4">
           <div className="w-full">
-            <FormikTextareaField size="m" name="text" placeholder="What do you say to that?!" />
+            <FormikTextareaField size="m" name="text" placeholder="Give Bark a great answer!" rows={2} />
           </div>
-          <Button size="m" type="submit" status={isSubmitting ? 'busy' : ''}>
-            Submit
+          <Button size="m" type="submit" status={isSubmitting ? 'busy' : ''} width="full">
+            Reply to Bark
           </Button>
         </div>
       </Form>

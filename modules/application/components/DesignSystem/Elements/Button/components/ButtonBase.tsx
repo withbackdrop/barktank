@@ -10,9 +10,9 @@ const mapThemeBorder = {
 
 const mapThemeColor = {
   solid: {
-    default: `text-white bg-blue-500 disabled:bg-gray-150 disabled:text-gray-400
-    hover:bg-blue-500 active:bg-blue-700
-    focus:bg-blue-700 focus:shadow-outline-primary`,
+    default: `text-white bg-orange-500 disabled:bg-gray-150 disabled:text-gray-400 shadow-xl
+    hover:bg-orange-600 active:bg-orange-700
+    focus:bg-orange-700 focus:shadow-outline-primary`,
     red: `text-white bg-red-500 disabled:bg-red-400
     hover:bg-red-600 active:bg-red-600
     focus:bg-red-600 focus:shadow-outline-danger`,
@@ -23,7 +23,7 @@ const mapThemeColor = {
     gray: 'bg-gray-150 hover:bg-gray-300 disabled:bg-gray-300/80 disabled:text-gray-400 focus:shadow-outline',
   },
   ghost: {
-    default: `text-blue-500 border-blue-500 disabled:text-gray-600 disabled:border-gray-300`,
+    default: `text-orange-500 border-orange-500 disabled:text-gray-600 disabled:border-gray-300`,
     red: `hover:text-red-400 text-red-500 border-red-500 hover:border-red-400 focus:shadow-outline-danger`,
     green: `text-green-500 border-green-500 hover:border-green-600 focus:bg-green-500 focus:shadow-outline-danger`,
     white: 'text-white border-white hover:text-gray-900 hover:bg-white focus:shadow-outline',
@@ -61,9 +61,9 @@ const mapBaseSize = {
     none: 'h-12',
   },
   l: {
-    full: 'h-16 px-5 text-2xl w-full rounded-2xl',
-    auto: 'h-16 px-5 text-2xl rounded-2xl',
-    square: 'h-16 w-16 text-2xl rounded-2xl shrink-0',
+    full: 'h-16 px-8 text-2xl w-full rounded-xl',
+    auto: 'h-16 px-8 text-2xl rounded-xl',
+    square: 'h-16 w-16 text-2xl rounded-xl shrink-0',
     round: 'h-16 w-16 text-2xl rounded-full shrink-0',
     none: 'h-16 text-2xl',
   },

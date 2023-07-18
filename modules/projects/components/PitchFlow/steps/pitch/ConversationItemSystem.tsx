@@ -1,31 +1,23 @@
-import { Text, Note } from '@/modules/application/components/DesignSystem';
+import barkAvatar from '@/images/bark-avatar-angry.png';
+import { Text, Avatar } from '@/modules/application/components/DesignSystem';
 import SlowText from '@/modules/common/components/SlowText';
 
-const getColor = (probability: number) => {
-  if (probability <= 50) {
-    return 'red';
-  }
+import Heartbeat from './Heartbeat';
 
-  if (probability > 50 && probability <= 60) {
-    return 'yellow';
-  }
+const ConversationItemSystem = ({ text, probability, isLastAnswer }) => (
+  <div className="flex space-x-4">
+    <div className="flex flex-col items-center">
+      <Avatar src={barkAvatar} size="l" />
+      {isLastAnswer && <Heartbeat probability={probability} />}
+    </div>
 
-  if (probability > 60 && probability < 80) {
-    return 'blue';
-  }
-
-  return 'green';
-};
-
-const ConversationItemSystem = ({ text, probability }) => (
-  <Text tag="div">
-    <strong>Bark: </strong>
-    <SlowText speed={10} text={text} />
-    <br />
-    <Note color={getColor(probability)}>
-      <strong>Probability to invest: </strong> {probability}%
-    </Note>
-  </Text>
+    <div className="max-w-sm self-start rounded-xl bg-zinc-100 p-4">
+      <Text tag="div">
+        <strong>Bark: </strong>
+        <SlowText speed={10} text={text} />
+      </Text>
+    </div>
+  </div>
 );
 
 export default ConversationItemSystem;

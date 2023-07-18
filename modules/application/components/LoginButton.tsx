@@ -8,13 +8,17 @@ const LoginButton = () => {
 
   if (user) {
     return (
-      <Button theme="ghost" onClick={logout}>
+      <Button theme="ghost" onClick={logout} size="l">
         Logout
       </Button>
     );
   }
 
-  return <Button onClick={login}>Connect Twitter</Button>;
+  return (
+    <Button onClick={login} size="l">
+      Login with Twitter
+    </Button>
+  );
 };
 
 export default LoginButton;
