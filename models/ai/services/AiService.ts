@@ -21,6 +21,11 @@ export function getOutputParser() {
       .object({
         response: z.string().describe('AI response to the users reply. Includes a further question for the user.'),
         probability: z.number().describe('A probability to invest. Between 0 and 100.'),
+        price: z
+          .string()
+          .describe(
+            'How much you would invest based on your opinion. It should be one of these values: 0, 1k, 5k, 10k, 50k, 100k, 200k, 300k, 400k, 500k, 600k, 700k, 800k, 900k, 1M'
+          ),
       })
       .array()
       .describe('Response and a probability to invest.')

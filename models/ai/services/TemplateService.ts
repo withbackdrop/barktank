@@ -54,6 +54,8 @@ export function getTemplateResponse(difficulty: DifficultyEnum) {
        - If you are happy with the USER REPLY, then the next probability should be higher than the last.
        - If you are not happy with the USER REPLY, then it should remain the same or be lower!
        - ${getDifficultyText(difficulty)}\n\n
+       - You will then need to decide on a price for how much to invest. The range is between $1,000 and $1,000,000. You will make a decision based on how much you like the project, your probability to invest and its potential for being a great business!
+       - These are the prices you need to decide on: 0, 1k, 5k, 10k, 50k, 100k, 200k, 300k, 400k, 500k, 600k, 700k, 800k, 900k, 1M
        
        Format: {format_instructions}
   `;
