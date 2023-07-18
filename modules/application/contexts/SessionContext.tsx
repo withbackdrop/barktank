@@ -29,6 +29,7 @@ export const SessionContext = createContext<Session>({} as Session);
 export const SessionContextProvider = (props) => {
   const [user, setUser] = useState<User>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [isLoggingOut, setIsLoggingOut] = useState<boolean>(false);
 
   const handleLogin = async () => {
     await loginWithTwitter();
@@ -36,6 +37,7 @@ export const SessionContextProvider = (props) => {
   };
 
   const handleLogout = async () => {
+    setIsLoggingOut(true);
     await logout();
     windowRedirect(getUrlIndex());
   };
@@ -66,7 +68,7 @@ export const SessionContextProvider = (props) => {
     [isLoading, user]
   );
 
-  if (isLoading) {
+  if (isLoggingOut || isLoading) {
     return (
       <div className="flex h-screen items-center justify-center">
         <Spinner size="xl" align="center" />
