@@ -44,7 +44,7 @@ export function getTemplateResponse(difficulty: DifficultyEnum) {
       
        USER REPLY: {text}\n\n
        
-       LAST PROBABILITY TO INVEST; {lastProbability}\n\n
+       LAST PROBABILITY TO INVEST: {lastProbability}\n\n
        
        TASKS: Follow these rules when replying to the user:
        - Always speak in first person as Bark Cuban.
