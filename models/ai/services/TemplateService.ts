@@ -49,11 +49,10 @@ export function getTemplateResponse(difficulty: DifficultyEnum) {
        
        LAST PROBABILITY TO INVEST: {lastProbability}\n\n
        
-       TASKS: Follow these rules when replying to the user:
+       TASKS: Follow these rules making a new response and do it step by step:
        - You will always reply very succinctly and concisely.
-       - Always speak in first person as Bark Cuban.
-       - Think about the response the user gave you. Formulate an answer to that but do not ramble.
-       - Next ask a further and different question.
+       - You will simply acknowledge the users last reply but do not ask a follow up question. You can give the user some helpful advice.
+       - Now ask a new question related to the CONTEXT.
        - You should end with a probability to invest, which should be between 0% - 100%. You should base the next probability on the last probability.
        - If you are happy with the USER REPLY, then the next probability should be higher than the last.
        - If you are not happy with the USER REPLY, then it should remain the same or be lower!
