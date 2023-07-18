@@ -14,7 +14,7 @@ const CreateProjectModal = ({ isOpen, onRequestClose }: { isOpen: boolean; onReq
     <Modal isOpen={isOpen} onRequestClose={onRequestClose}>
       <Modal.Body>
         <Heading level={1} size="xl" spacing="xl">
-          Create new project pitch
+          Start a new game
         </Heading>
         <CreateProjectForm onCreated={(documentId) => push(getUrlProject(documentId))} />
       </Modal.Body>

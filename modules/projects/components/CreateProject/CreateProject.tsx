@@ -2,24 +2,20 @@
 
 import { useState } from 'react';
 
-import { Card } from '@/modules/application/components/DesignSystem';
-import { Button, Heading } from '@/modules/application/components/DesignSystem/Elements';
 import CreateProjectModal from '@/modules/projects/components/CreateProject/CreateProjectModal';
 
 const CreateProject = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   return (
-    <Card>
-      <div className="m-auto flex h-full flex-col items-center justify-center">
-        <Heading level={1} size="xl" spacing="m" textAlign="center">
-          Create new project pitch
-        </Heading>
-        <Button theme="ghost" onClick={() => setIsModalOpen(true)}>
-          Create
-        </Button>
-        <CreateProjectModal isOpen={isModalOpen} onRequestClose={() => setIsModalOpen(false)} />
+    <>
+      <div
+        onClick={() => setIsModalOpen(true)}
+        className="m-auto flex h-full w-full cursor-pointer flex-col items-center justify-center rounded-2xl border-4 border-zinc-700 hover:border-white text-5xl text-zinc-500 hover:text-white font-bold transition-all ease-in-out"
+      >
+        +
       </div>
-    </Card>
+      <CreateProjectModal isOpen={isModalOpen} onRequestClose={() => setIsModalOpen(false)} />
+    </>
   );
 };
 
