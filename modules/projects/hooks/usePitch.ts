@@ -56,13 +56,13 @@ const usePitch = (projectId: string, difficulty: DifficultyEnum) => {
     try {
       const pitchInternalService = new PitchInternalApiService(true);
       const response = await pitchInternalService.getPitchResponse(projectId, difficulty, text);
-      if (response.probability >= PROBABILITY_PITCH_ACCEPT) {
-        setWillInvest(true);
-        setIsThinking(false);
-        return;
-      }
-
       if (conversations.length >= 6) {
+        if (response.probability >= PROBABILITY_PITCH_ACCEPT) {
+          setWillInvest(true);
+          setIsThinking(false);
+          return;
+        }
+
         setWillInvest(false);
         setIsThinking(false);
         return;
