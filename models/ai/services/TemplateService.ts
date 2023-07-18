@@ -5,7 +5,7 @@ function getDifficultyText(difficulty: DifficultyEnum) {
     case DifficultyEnum.EASY:
       return 'You should be easily convinced to invest at the end, meaning your probability to invest should always be above 50%';
     case DifficultyEnum.NORMAL:
-      return '';
+      return 'You are hard to please. Your probability to invest should be always above 40%.';
     case DifficultyEnum.HARD:
     default:
       return 'You are hard to please. Your probability to invest should be always above 10% but only sometimes go above 80%.';
