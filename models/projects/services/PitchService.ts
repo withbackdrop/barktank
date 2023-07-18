@@ -2,12 +2,28 @@ import { PromptTemplate } from 'langchain/prompts';
 
 import { ConversationLogActorEnum } from '@/models/ai/enums/ConversationLogActorEnum';
 import { ConversationLogInterface } from '@/models/ai/interfaces/ConversationLogInterface';
-import { fixOutput, getModel, getOutputParser, getOutputParserInitial } from '@/models/ai/services/AiService';
-import { addToConversationLog, getConversationLogsByProjectId } from '@/models/ai/services/ConversationLogService';
-import { getTemplateInitial, getTemplateResponse } from '@/models/ai/services/TemplateService';
+import {
+  fixOutput,
+  getModel,
+  getOutputParser,
+  getOutputParserFinal,
+  getOutputParserInitial,
+} from '@/models/ai/services/AiService';
+import {
+  addToConversationLog,
+  getConversationLogsByProjectId,
+  getConversationLogString,
+} from '@/models/ai/services/ConversationLogService';
+import {
+  getTemplateFinalDecision,
+  getTemplateInitial,
+  getTemplateResponse,
+} from '@/models/ai/services/TemplateService';
 import { DifficultyEnum } from '@/models/projects/enums/DifficultyEnum';
 import { ProjectInterface } from '@/models/projects/interfaces/ProjectInterface';
 import { getProjectById } from '@/models/projects/services/ProjectService';
+
+const MAX_ROUNDS = 6;
 
 async function getInitialPitchResponse(project: ProjectInterface, difficulty: DifficultyEnum) {
   const outputParser = getOutputParserInitial();
@@ -65,6 +81,33 @@ async function getNextPitchResponse(
   }
 }
 
+export async function getPitchFinalDecision(project: ProjectInterface, difficulty: DifficultyEnum) {
+  const conversationLog = await getConversationLogString(project.id);
+
+  const outputParser = getOutputParserFinal();
+  const promptTemplate = new PromptTemplate({
+    template: getTemplateFinalDecision(difficulty),
+    inputVariables: ['projectName', 'transcript', 'history'],
+    partialVariables: {
+      format_instructions: outputParser.getFormatInstructions(),
+    },
+  });
+
+  const input = await promptTemplate.format({
+    projectName: project.name,
+    transcript: project.transcript,
+    history: conversationLog,
+  });
+
+  const result = await getModel().call(input);
+
+  try {
+    return await outputParser.parse(result);
+  } catch (e) {
+    return await fixOutput(outputParser, result);
+  }
+}
+
 export async function getPitchResponse(projectId: string, difficulty: DifficultyEnum, text?: string) {
   const project = await getProjectById(projectId);
   if (!project) {
@@ -86,6 +129,21 @@ export async function getPitchResponse(projectId: string, difficulty: Difficulty
   }
 
   const conversationLog = await getConversationLogsByProjectId(projectId);
+
+  if (conversationLog?.length >= MAX_ROUNDS) {
+    const response = await getPitchFinalDecision(project, difficulty);
+
+    await addToConversationLog(projectId, project.userId, ConversationLogActorEnum.USER, text);
+    await addToConversationLog(
+      projectId,
+      project.userId,
+      ConversationLogActorEnum.SYSTEM,
+      response?.[0]?.decision,
+      response?.[0]?.probability
+    );
+
+    return response?.[0];
+  }
 
   const response = await getNextPitchResponse(project, difficulty, text, conversationLog);
 
