@@ -8,7 +8,7 @@ function getDifficultyText(difficulty: DifficultyEnum) {
       return '';
     case DifficultyEnum.HARD:
     default:
-      return 'You are hard to please. Your probability to invest should be always above 10% but hardly go above 80%.';
+      return 'You are hard to please. Your probability to invest should be always above 10% but only sometimes go above 80%.';
   }
 }
 
