@@ -21,6 +21,20 @@ export function getOutputParser() {
       .object({
         response: z.string().describe('AI response to the users reply. Includes a further question for the user.'),
         probability: z.number().describe('A probability to invest. Between 0 and 100.'),
+      })
+      .array()
+      .describe('Response and a probability to invest.')
+  );
+}
+
+export function getOutputParserFinal() {
+  return StructuredOutputParser.fromZodSchema(
+    z
+      .object({
+        decision: z
+          .string()
+          .describe('Your decision if you will invest and why. Above 80% means you invest. Lower you do not invest.'),
+        probability: z.number().describe('A probability to invest. Between 0 and 100.'),
         price: z
           .string()
           .describe(
@@ -28,7 +42,7 @@ export function getOutputParser() {
           ),
       })
       .array()
-      .describe('Response and a probability to invest.')
+      .describe('Probability to invest and decision why along with a price.')
   );
 }
 
