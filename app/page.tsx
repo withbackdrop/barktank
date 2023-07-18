@@ -28,13 +28,13 @@ export default async function IndexPage() {
   return (
     <ContentLayout>
       <ContentLayout.Content>
-        <div className="relative m-auto w-full max-w-3xl overflow-hidden rounded-xl border-8 border-zinc-800 pt-8">
+        <div className="relative mx-auto w-full max-w-2xl overflow-hidden rounded-xl border-8 border-zinc-800 pt-8">
           <Image src={bgEntrance} alt="Enter Bark Tank" />
-          <div className="absolute bottom-0 z-10 flex w-full flex-col items-center space-y-4 px-24 py-4">
+          <div className="absolute bottom-0 z-10 flex w-full flex-col items-center space-y-4 bg-zinc-900/40 px-24 py-6">
             <LoginButton />
-            <Text textAlign="center" size="s" fontWeight="semibold">
+            <Text textAlign="center" size="s" color="white">
               You need to log in with Twitter to play Bark Tank. <br />
-              We do not post or read any data from your account.
+              We do not post or read any data from your Twitter account.
             </Text>
           </div>
         </div>
