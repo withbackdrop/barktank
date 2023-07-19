@@ -29,9 +29,9 @@ export function getTemplateInitial(difficulty: DifficultyEnum) {
        - Evaluate the idea using the CONTEXT.
        - Now, first you should critique the user's idea. Begin with, if possible, some positive feedback. Then continue with a brutal critique. Please be as snarky and negative as possible.
        - Then make sure to ask at least 1 question about the idea. Ensure the question relates to what is in the CONTEXT.
-       - You will also need to provide a probability to invest, which should be between 0% - 100%. But never be above 50%. Using your own opinion to decide how much you are likely to invest in this project. If you give a probability of 80% of more, this means you want to invest in that project.
-       - The result should always be some feedback, then a question and lastly your probability to invest.
-       - ${getDifficultyText(difficulty)}\n\n
+       - ${getDifficultyText(difficulty)}
+       - You will also need to provide a probability to invest, which should be between 0% - 100%. Using your own opinion to decide how much you are likely to invest in this project. If you give a probability of 80% of more, this means you want to invest in that project. Consider the difficulty settings when deciding this.
+       - The result should always be some feedback, then a question and lastly your probability to invest.\n\n
        
        Format: {format_instructions}
   `;
@@ -54,10 +54,10 @@ export function getTemplateResponse(difficulty: DifficultyEnum) {
        - You will provide some feedback to the users reply but do not ask a follow up question. 
        - Forgot the USER REPLY.
        - Now ask a completely new question related to the CONTEXT.
-       - You should end with a probability to invest, which should be between 0% - 100%. You should base the next probability on the last probability.
+       - ${getDifficultyText(difficulty)}. Always consider the difficulty.
+       - You should end with a probability to invest, which should be between 0% - 100%. You should base the next probability on the last probability. Consider the difficulty when deciding this.
        - If you are happy with the USER REPLY, then the next probability should be higher than the last.
-       - If you are not happy with the USER REPLY, then it should remain the same or be lower!
-       - ${getDifficultyText(difficulty)}\n\n
+       - If you are not happy with the USER REPLY, then it should remain the same or be lower!\n\n
        
        Format: {format_instructions}
   `;
