@@ -115,11 +115,21 @@ export async function getPitchResponse(projectId: string, difficulty: Difficulty
 }
 
 async function getPitchFinalDecision(project: ProjectInterface, difficulty: DifficultyEnum) {
-  const conversationLog = await getConversationLogString(project.id);
+  const conversationLogString = await getConversationLogString(project.id);
+  const conversationLog = await getConversationLogsByProjectId(project.id);
+
+  const allProbabilities = [];
+  conversationLog.forEach((conversationLogItem) => {
+    if (conversationLogItem.actor === ConversationLogActorEnum.SYSTEM) {
+      allProbabilities.push(conversationLogItem.probability);
+    }
+  });
+
+  const sum = allProbabilities.reduce((a, b) => a + b, 0);
 
   const outputParser = getOutputParserFinal();
   const promptTemplate = new PromptTemplate({
-    template: getTemplateFinalDecision(difficulty),
+    template: getTemplateFinalDecision(difficulty, sum / allProbabilities.length),
     inputVariables: ['projectName', 'transcript', 'history'],
     partialVariables: {
       format_instructions: outputParser.getFormatInstructions(),
@@ -129,7 +139,7 @@ async function getPitchFinalDecision(project: ProjectInterface, difficulty: Diff
   const input = await promptTemplate.format({
     projectName: project.name,
     transcript: project.transcript,
-    history: conversationLog,
+    history: conversationLogString,
   });
 
   const result = await getModel().call(input);
