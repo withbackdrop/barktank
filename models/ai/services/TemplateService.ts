@@ -99,7 +99,7 @@ export function getTemplateFinalDecision(difficulty: DifficultyEnum, averageProb
        TASKS: Follow all these steps step-by-step:
        STEP 1: You will consider the CONVERSATION and the CONTEXT.
        STEP 2: You have decided you will NOT invest.
-       STEP 2: You need to tell the user why you have decided not to invest. Be really negative and mean. You can say things like "This has been a complete waste of my time" or "Do not waste your time anymore on this"
+       STEP 2: You need to tell the user why you have decided not to invest. Give them a few reasons. Be really negative and mean.
        
        Format: {format_instructions}
   `;
@@ -117,7 +117,7 @@ export function getTemplateFinalDecision(difficulty: DifficultyEnum, averageProb
        TASKS: Follow all these steps step-by-step:
        STEP 1: You will consider the CONVERSATION and the CONTEXT.
        STEP 2: You have decided you will NOT invest.
-       STEP 2: You need to tell the user why you have decided not to invest. 
+       STEP 2: You need to tell the user why you have decided not to invest. Give them a few reasons. Do not be too negative.
        
        Format: {format_instructions}
   `;
