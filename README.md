@@ -1,14 +1,19 @@
-Bark Tank is a silly little fun thing and not affiliated with Shark Tank or ABC. Built by nerds at Backdrop and open source.
+# Bark Tank - A Fun and Silly Open-Source AI Project
+
+Bark Tank is a little game where you pitch your idea, via a video, to an investor called Bark Cuban.
+Please note that it is not associated with Shark Tank or ABC.
 
 ## Getting Started
 
-To get started, rename `.env.local.example` to `.env.local`. and set the corresponding values.
+To quickly get started with Bark Tank, follow these simple steps:
 
-Next run `yarn install`
+1. Rename the `.env.local.example` file to `.env.local and provide the necessary values. This will ensure your application is correctly configured.
 
-Finally run `yarn dev` to start it! Have fun!
+2. Run `yarn install` to install all the required dependencies and set the stage for an amazing experience.
 
-NOTE: You will have to have firestore step up with Twitter authentication enabled!
+3. Finally, execute `yarn dev` to launch the Bark Tank application. Now, it's time to have some fun!
+
+Note: Before you proceed, make sure to set up Firestore with Twitter authentication enabled. This step is crucial for the full functionality of the application!
 
 ## Tech Stack
 
@@ -18,3 +23,11 @@ NOTE: You will have to have firestore step up with Twitter authentication enable
 - Tailwind
 - OpenAI
 - Twitter
+
+## Contribution
+
+Bark Tank is an open-source project, and we welcome contributions from the community! If you have any ideas, bug fixes, or new features to add, please feel free to submit a pull request. We appreciate your support in making Bark Tank even better!
+
+## Get Involved
+
+Let's bark together and make Bark Tank a howling success! 🐶🚀
