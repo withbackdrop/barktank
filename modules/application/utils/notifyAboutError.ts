@@ -10,6 +10,8 @@ export const notifyAboutError = (error, _captureException = true, customMessage 
       message = error;
     } else if (error?.response?.data?.error?.message) {
       message = error.response.data.error.message;
+    } else if (error?.response?.data) {
+      message = error.response.data;
     } else if (error?.message) {
       message = error.message;
     } else {

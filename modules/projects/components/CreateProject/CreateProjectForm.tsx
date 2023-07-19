@@ -8,6 +8,7 @@ import { TranscriptInternalApiService } from '@/models/common/services/internalA
 import { createProject } from '@/models/projects/services/ProjectService';
 import { Button, Stack } from '@/modules/application/components/DesignSystem';
 import { useSessionContext } from '@/modules/application/contexts/SessionContext';
+import { notifyAboutError } from '@/modules/application/utils/notifyAboutError';
 import { FormikInputField, FormikTextareaField } from '@/modules/common/components/Formik';
 import { isValidUrl } from '@/modules/common/utils/urlUtils';
 
@@ -48,7 +49,7 @@ const CreateProjectForm = ({ onCreated }: { onCreated: (string) => any }) => {
 
           onCreated(doc.id);
         } catch (error: any) {
-          toast.error('Project could not be saved.');
+          notifyAboutError(error);
         }
       }}
       initialValues={{

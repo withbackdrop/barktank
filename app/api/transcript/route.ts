@@ -4,7 +4,13 @@ import { YoutubeTranscript } from 'youtube-transcript';
 export async function POST(res) {
   const data = await res.json();
 
-  const transcript = await YoutubeTranscript.fetchTranscript(data.url);
+  try {
+    const transcript = await YoutubeTranscript.fetchTranscript(data.url);
 
-  return NextResponse.json(transcript);
+    return NextResponse.json(transcript);
+  } catch (error) {
+    return new Response('Could not find transcript for the provided video.', {
+      status: 500,
+    });
+  }
 }
