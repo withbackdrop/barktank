@@ -27,6 +27,11 @@ const PitchFlowPitch = ({ flowData: { project, difficulty, currentStep }, onAcce
   if (isThinking) {
     return (
       <Card elevation="l">
+        <div className="flex justify-center text-center">
+          <Text fontWeight="bold" size="xl" spacing="l">
+            Round {getCurrentRound(currentStep)}/3
+          </Text>
+        </div>
         <ConversationItemThinking />
       </Card>
     );
