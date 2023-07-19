@@ -3,6 +3,7 @@
 export interface ProjectInterface {
   id: string;
   userId: string;
+  roundsPlayed: number;
   createdAt: number;
   updatedAt: number;
   name: string;

@@ -3,6 +3,7 @@ import {
   getFirestoreCollectionDocumentById,
   getFirestoreCollectionDocumentsByWhereConditions,
   getWhereQueryConstraint,
+  updateFirestoreCollectionDocumentById,
 } from '@/models/application/services/FirestoreService';
 import { ProjectInterface } from '@/models/projects/interfaces/ProjectInterface';
 
@@ -23,11 +24,16 @@ export async function createProject(
     description,
     youtubeUrl,
     transcript,
+    roundsPlayed: 0,
   });
 }
 
 export async function getProjectById(projectId: string): Promise<ProjectInterface> {
   return getFirestoreCollectionDocumentById<ProjectInterface>(COLLECTION_NAME, projectId);
+}
+
+export async function updateProjectById(projectId: string, data: Partial<ProjectInterface>): Promise<void> {
+  await updateFirestoreCollectionDocumentById(COLLECTION_NAME, projectId, data);
 }
 
 export async function getProjectsByUserId(userId: string): Promise<ProjectInterface[]> {

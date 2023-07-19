@@ -19,9 +19,10 @@ import {
   getTemplateInitial,
   getTemplateResponse,
 } from '@/models/ai/services/TemplateService';
+import { updateFirestoreCollectionDocumentById } from '@/models/application/services/FirestoreService';
 import { DifficultyEnum } from '@/models/projects/enums/DifficultyEnum';
 import { ProjectInterface } from '@/models/projects/interfaces/ProjectInterface';
-import { getProjectById } from '@/models/projects/services/ProjectService';
+import { getProjectById, updateProjectById } from '@/models/projects/services/ProjectService';
 
 async function getInitialPitchResponse(project: ProjectInterface, difficulty: DifficultyEnum) {
   const outputParser = getOutputParserInitial();
@@ -166,6 +167,8 @@ export async function getPitchDecision(projectId: string, difficulty: Difficulty
     response?.[0]?.decision,
     response?.[0]?.probability
   );
+
+  await updateProjectById(project.id, { roundsPlayed: project.roundsPlayed++ });
 
   return response?.[0];
 }
