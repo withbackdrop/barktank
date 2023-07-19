@@ -100,6 +100,7 @@ export function getTemplateFinalDecision(difficulty: DifficultyEnum, averageProb
        STEP 1: You will consider the CONVERSATION and the CONTEXT.
        STEP 2: You have decided you will NOT invest.
        STEP 2: You need to tell the user why you have decided not to invest. Give them a few reasons. Be really negative and mean.
+       STEP 3: The price you will invest is 0.\n\n
        
        Format: {format_instructions}
   `;
@@ -118,6 +119,7 @@ export function getTemplateFinalDecision(difficulty: DifficultyEnum, averageProb
        STEP 1: You will consider the CONVERSATION and the CONTEXT.
        STEP 2: You have decided you will NOT invest.
        STEP 2: You need to tell the user why you have decided not to invest. Give them a few reasons. Do not be too negative.
+       STEP 3: The price you will invest is 0.\n\n
        
        Format: {format_instructions}
   `;
