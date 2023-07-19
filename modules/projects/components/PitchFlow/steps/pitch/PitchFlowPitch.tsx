@@ -2,7 +2,6 @@ import { useEffect } from 'react';
 
 import { ConversationLogActorEnum } from '@/models/ai/enums/ConversationLogActorEnum';
 import { Card } from '@/modules/application/components/DesignSystem';
-import Spinner from '@/modules/common/components/animations/Spinner';
 import PitchReplyForm from '@/modules/projects/components/PitchFlow/PitchReplyForm';
 import usePitch from '@/modules/projects/hooks/usePitch';
 
@@ -24,7 +23,7 @@ const PitchFlowPitch = ({ flowData: { project, difficulty }, onAccept, onReject 
   if (isLoading) {
     return (
       <Card elevation="l">
-        <Spinner align="center" size="m" />
+        <ConversationItemThinking />
       </Card>
     );
   }
