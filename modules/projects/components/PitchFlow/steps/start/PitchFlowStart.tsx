@@ -10,7 +10,7 @@ const PitchFlowStart = ({ flowData: { project }, onAccept }: any) => (
   <Card elevation="l">
     <Stack alignItems="center">
       <Stack.Item>
-        <Image src={barkFull} alt="Bark Cuban" width={256} height={256} className="rounded-lg" />
+        <Image src={barkFull} alt="Bark Cuban" width={256} height={256} className="rounded-lg" priority={true} />
       </Stack.Item>
       <Stack.Item>
         <Heading textAlign="center" size="xxl" spacing="s">
