@@ -64,7 +64,7 @@ const CreateProjectForm = ({ onCreated }: { onCreated: (string) => any }) => {
           <Stack spacing="l">
             <Stack.Item>
               <div className="w-full">
-                <FormikInputField label="Project name" name="name" placeholder="What is the name of your project?" />
+                <FormikInputField label="Project name" name="name" placeholder="What is your project called?" />
               </div>
             </Stack.Item>
             <Stack.Item>

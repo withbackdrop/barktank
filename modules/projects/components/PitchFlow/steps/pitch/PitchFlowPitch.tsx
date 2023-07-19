@@ -21,18 +21,34 @@ const getCurrentRound = (currentStep: string) => {
   }
 };
 
+const getWaitMessage = (currentStep: string) => {
+  switch (currentStep) {
+    case steps.ROUND_ONE:
+      return 'What a waste of my time, but hang on while I watch your pitch...';
+    case steps.ROUND_TWO:
+      return 'I see... mmm...';
+    case steps.ROUND_THREE:
+      return 'Woof...';
+    default:
+      return null;
+  }
+};
+
 const PitchFlowPitch = ({ flowData: { project, difficulty, currentStep }, onAccept }: any) => {
   const { conversations, isThinking, getResponse } = usePitch(project.id, difficulty);
 
   if (isThinking) {
     return (
       <Card elevation="l">
-        <div className="flex justify-center text-center">
-          <Text fontWeight="bold" size="xl" spacing="l">
-            Round {getCurrentRound(currentStep)}/3
+        <div className="flex flex-col items-center justify-center text-center">
+          <Text fontWeight="bold" size="xl">
+            Round {getCurrentRound(currentStep)} of 3
+          </Text>
+          <Text size="s" spacing="l">
+            Try to get Bark Cuban to invest!
           </Text>
         </div>
-        <ConversationItemThinking />
+        <ConversationItemThinking text={getWaitMessage(currentStep)} />
       </Card>
     );
   }
@@ -45,9 +61,12 @@ const PitchFlowPitch = ({ flowData: { project, difficulty, currentStep }, onAcce
 
   return (
     <Card elevation="l" isOverflowHidden={true}>
-      <div className="flex justify-center text-center">
-        <Text fontWeight="bold" size="xl" spacing="l">
-          Round {getCurrentRound(currentStep)}/3
+      <div className="flex flex-col items-center justify-center text-center">
+        <Text fontWeight="bold" size="xl">
+          Round {getCurrentRound(currentStep)} of 3
+        </Text>
+        <Text size="s" spacing="l">
+          Try to get Bark Cuban to invest!
         </Text>
       </div>
       <div className="flex flex-col space-y-8">
@@ -66,11 +85,7 @@ const PitchFlowPitch = ({ flowData: { project, difficulty, currentStep }, onAcce
           );
         })}
         {canReply && <PitchReplyForm onSubmit={getResponse} />}
-        {isLastConversationItemUsers && (
-          <Button onClick={() => onAccept({ conversations })}>
-            {currentStep === steps.ROUND_THREE ? 'Continue' : 'Next round'}
-          </Button>
-        )}
+        {isLastConversationItemUsers && <Button onClick={() => onAccept({ conversations })}>Continue</Button>}
       </div>
     </Card>
   );
