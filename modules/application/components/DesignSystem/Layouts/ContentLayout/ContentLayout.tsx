@@ -16,7 +16,7 @@ const ContentLayout = ({ children }: ContentLayout) => {
   return (
     <div className="flex min-h-screen flex-col">
       {header && <header>{header}</header>}
-      <main className="grow p-12">{content}</main>
+      <main className="grow p-4 md:p-12">{content}</main>
       {footer && <footer>{footer}</footer>}
     </div>
   );
