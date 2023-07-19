@@ -2,7 +2,8 @@
 
 import { getUrlProject } from '@/models/application/services/UrlService';
 import { ProjectInterface } from '@/models/projects/interfaces/ProjectInterface';
-import { Button, Card, Text } from '@/modules/application/components/DesignSystem';
+import { Button, Card, Note, Text } from '@/modules/application/components/DesignSystem';
+import { MAX_ROUNDS_PER_PROJECT } from '@/modules/projects/utils/constants';
 
 const ProjectListItem = ({ project }: { project: ProjectInterface }) => (
   <Card>
@@ -13,9 +14,13 @@ const ProjectListItem = ({ project }: { project: ProjectInterface }) => (
       {project.description && <Text spacing="s">{project.description}</Text>}
     </div>
 
-    <Button href={getUrlProject(project.id)} width="full">
-      Pitch this project
-    </Button>
+    {project.roundsPlayed < MAX_ROUNDS_PER_PROJECT ? (
+      <Button href={getUrlProject(project.id)} width="full">
+        Pitch this project
+      </Button>
+    ) : (
+      <Note color="yellow">Pitch limit exceeded</Note>
+    )}
   </Card>
 );
 
