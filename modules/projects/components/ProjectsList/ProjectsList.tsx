@@ -14,7 +14,7 @@ const ProjectsList = () => {
   const { projects, isLoading } = useUserProjects(user.uid);
   return (
     <div className="m-auto w-full max-w-5xl">
-      <Heading level={1} size="xxl" spacing="xl">
+      <Heading level={1} size="xxl" spacing="xl" color="white">
         Your projects
       </Heading>
       {isLoading && <Spinner size="l" align="center" />}
