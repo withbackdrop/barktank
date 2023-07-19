@@ -8,6 +8,8 @@ Next run `yarn install`
 
 Finally run `yarn dev` to start it! Have fun!
 
+NOTE: You will have to have firestore step up with Twitter authentication enabled!
+
 ## Tech Stack
 
 - NextJS
@@ -15,3 +17,4 @@ Finally run `yarn dev` to start it! Have fun!
 - LangChain
 - Tailwind
 - OpenAI
+- Twitter
