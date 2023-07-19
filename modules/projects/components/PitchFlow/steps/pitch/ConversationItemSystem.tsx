@@ -14,7 +14,7 @@ const ConversationItemSystem = ({ text, probability, isLastAnswer }) => (
     <div className="max-w-sm self-start rounded-xl bg-zinc-100 p-4">
       <Text tag="div">
         <strong>Bark: </strong>
-        <SlowText speed={10} text={text} />
+        <SlowText speed={5} text={text} />
       </Text>
     </div>
   </div>

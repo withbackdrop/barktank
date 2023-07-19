@@ -2,10 +2,9 @@
 
 import useFlow from '@/modules/application/hooks/useFlow';
 
-import PitchFlowLose from './steps/lose/PitchFlowLose';
+import PitchFlowDecision from './steps/decision/PitchFlowDecision';
 import PitchFlowPitch from './steps/pitch/PitchFlowPitch';
 import PitchFlowStart from './steps/start/PitchFlowStart';
-import PitchFlowWin from './steps/win/PitchFlowWin';
 import steps from './utils/steps';
 
 const PitchFlow = ({ project }) => {
@@ -15,15 +14,25 @@ const PitchFlow = ({ project }) => {
 
   const { currentStep, handleGoToStep } = useFlow({
     steps: {
-      [steps.START]: <PitchFlowStart onAccept={(data) => handleGoToNextStep(steps.PITCH, data)} />,
-      [steps.PITCH]: (
+      [steps.START]: <PitchFlowStart onAccept={(data) => handleGoToNextStep(steps.ROUND_ONE, data)} />,
+      [steps.ROUND_ONE]: (
+        <PitchFlowPitch onAccept={(data) => handleGoToNextStep(steps.ROUND_TWO, data)} key={steps.ROUND_ONE} />
+      ),
+      [steps.ROUND_TWO]: (
         <PitchFlowPitch
-          onAccept={(data) => handleGoToNextStep(steps.WIN, data)}
-          onReject={(data) => handleGoToNextStep(steps.LOSE, data)}
+          key={steps.ROUND_TWO}
+          onAccept={(data) => handleGoToNextStep(steps.ROUND_THREE, data)}
+          onReject={() => handleGoToNextStep(steps.ROUND_ONE)}
         />
       ),
-      [steps.WIN]: <PitchFlowWin />,
-      [steps.LOSE]: <PitchFlowLose />,
+      [steps.ROUND_THREE]: (
+        <PitchFlowPitch
+          key={steps.ROUND_THREE}
+          onAccept={(data) => handleGoToNextStep(steps.DECISION, data)}
+          onReject={() => handleGoToNextStep(steps.ROUND_TWO)}
+        />
+      ),
+      [steps.DECISION]: <PitchFlowDecision />,
     },
     initialStep: steps.START,
     data: { project },

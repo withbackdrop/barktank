@@ -1,7 +1,5 @@
-import { useEffect } from 'react';
-
 import { ConversationLogActorEnum } from '@/models/ai/enums/ConversationLogActorEnum';
-import { Card } from '@/modules/application/components/DesignSystem';
+import { Button, Card } from '@/modules/application/components/DesignSystem';
 import PitchReplyForm from '@/modules/projects/components/PitchFlow/PitchReplyForm';
 import usePitch from '@/modules/projects/hooks/usePitch';
 
@@ -9,18 +7,10 @@ import ConversationItemSystem from './ConversationItemSystem';
 import ConversationItemThinking from './ConversationItemThinking';
 import ConversationItemUser from './ConversationItemUser';
 
-const PitchFlowPitch = ({ flowData: { project, difficulty }, onAccept, onReject }: any) => {
-  const { conversations, isLoading, getResponse, willInvest, isThinking } = usePitch(project.id, difficulty);
+const PitchFlowPitch = ({ flowData: { project, difficulty }, onAccept }: any) => {
+  const { conversations, isThinking, getResponse } = usePitch(project.id, difficulty);
 
-  useEffect(() => {
-    if (willInvest === true) {
-      onAccept();
-    } else if (willInvest === false) {
-      onReject();
-    }
-  }, [willInvest]);
-
-  if (isLoading) {
+  if (isThinking) {
     return (
       <Card elevation="l">
         <ConversationItemThinking />
@@ -29,10 +19,10 @@ const PitchFlowPitch = ({ flowData: { project, difficulty }, onAccept, onReject 
   }
 
   const canReply =
-    willInvest === null &&
-    conversations.length > 0 &&
-    conversations[conversations.length - 1].actor === ConversationLogActorEnum.SYSTEM &&
-    !isThinking;
+    conversations.length > 0 && conversations[conversations.length - 1].actor === ConversationLogActorEnum.SYSTEM;
+
+  const isLastConversationItemUsers =
+    conversations?.length > 0 && conversations[conversations.length - 1].actor === ConversationLogActorEnum.USER;
 
   return (
     <Card elevation="l" isOverflowHidden={true}>
@@ -52,7 +42,7 @@ const PitchFlowPitch = ({ flowData: { project, difficulty }, onAccept, onReject 
           );
         })}
         {canReply && <PitchReplyForm onSubmit={getResponse} />}
-        {isThinking && <ConversationItemThinking />}
+        {isLastConversationItemUsers && <Button onClick={() => onAccept({ conversations })}>Next round</Button>}
       </div>
     </Card>
   );

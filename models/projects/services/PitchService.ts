@@ -23,8 +23,6 @@ import { DifficultyEnum } from '@/models/projects/enums/DifficultyEnum';
 import { ProjectInterface } from '@/models/projects/interfaces/ProjectInterface';
 import { getProjectById } from '@/models/projects/services/ProjectService';
 
-const MAX_ROUNDS = 6;
-
 async function getInitialPitchResponse(project: ProjectInterface, difficulty: DifficultyEnum) {
   const outputParser = getOutputParserInitial();
   const promptTemplate = new PromptTemplate({
@@ -81,7 +79,42 @@ async function getNextPitchResponse(
   }
 }
 
-export async function getPitchFinalDecision(project: ProjectInterface, difficulty: DifficultyEnum) {
+export async function getPitchResponse(projectId: string, difficulty: DifficultyEnum) {
+  const project = await getProjectById(projectId);
+  if (!project) {
+    throw new Error('Project not found.');
+  }
+
+  const conversationLog = await getConversationLogsByProjectId(projectId);
+  const lastReply = conversationLog?.length > 0 ? conversationLog[conversationLog.length - 1].text : null;
+  if (!lastReply) {
+    const response = await getInitialPitchResponse(project, difficulty);
+
+    await addToConversationLog(
+      projectId,
+      project.userId,
+      ConversationLogActorEnum.SYSTEM,
+      response?.[0]?.response,
+      response?.[0]?.probability
+    );
+
+    return response?.[0];
+  }
+
+  const response = await getNextPitchResponse(project, difficulty, lastReply, conversationLog);
+
+  await addToConversationLog(
+    projectId,
+    project.userId,
+    ConversationLogActorEnum.SYSTEM,
+    response?.[0]?.response,
+    response?.[0]?.probability
+  );
+
+  return response?.[0];
+}
+
+async function getPitchFinalDecision(project: ProjectInterface, difficulty: DifficultyEnum) {
   const conversationLog = await getConversationLogString(project.id);
 
   const outputParser = getOutputParserFinal();
@@ -108,51 +141,19 @@ export async function getPitchFinalDecision(project: ProjectInterface, difficult
   }
 }
 
-export async function getPitchResponse(projectId: string, difficulty: DifficultyEnum, text?: string) {
+export async function getPitchDecision(projectId: string, difficulty: DifficultyEnum) {
   const project = await getProjectById(projectId);
   if (!project) {
     throw new Error('Project not found.');
   }
 
-  if (!text) {
-    const response = await getInitialPitchResponse(project, difficulty);
+  const response = await getPitchFinalDecision(project, difficulty);
 
-    await addToConversationLog(
-      projectId,
-      project.userId,
-      ConversationLogActorEnum.SYSTEM,
-      response?.[0]?.response,
-      response?.[0]?.probability
-    );
-
-    return response?.[0];
-  }
-
-  const conversationLog = await getConversationLogsByProjectId(projectId);
-
-  if (conversationLog?.length >= MAX_ROUNDS) {
-    const response = await getPitchFinalDecision(project, difficulty);
-
-    await addToConversationLog(projectId, project.userId, ConversationLogActorEnum.USER, text);
-    await addToConversationLog(
-      projectId,
-      project.userId,
-      ConversationLogActorEnum.SYSTEM,
-      response?.[0]?.decision,
-      response?.[0]?.probability
-    );
-
-    return response?.[0];
-  }
-
-  const response = await getNextPitchResponse(project, difficulty, text, conversationLog);
-
-  await addToConversationLog(projectId, project.userId, ConversationLogActorEnum.USER, text);
   await addToConversationLog(
     projectId,
     project.userId,
     ConversationLogActorEnum.SYSTEM,
-    response?.[0]?.response,
+    response?.[0]?.decision,
     response?.[0]?.probability
   );
 

@@ -1,11 +1,11 @@
 import { NextResponse } from 'next/server';
 
-import { getPitchResponse } from '@/models/projects/services/PitchService';
+import { getPitchDecision } from '@/models/projects/services/PitchService';
 
 export async function POST(res) {
   const data = await res.json();
 
-  const response = await getPitchResponse(data.projectId, data.difficulty);
+  const response = await getPitchDecision(data.projectId, data.difficulty);
 
   return NextResponse.json(response);
 }

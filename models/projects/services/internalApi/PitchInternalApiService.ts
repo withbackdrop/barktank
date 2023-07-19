@@ -16,4 +16,16 @@ export class PitchInternalApiService extends AbstractInternalApiService {
 
     return response;
   }
+
+  async getPitchDecision(projectId: string, difficulty: DifficultyEnum): Promise<any> {
+    const response = await this.executePostQuery<any>(`${PitchInternalApiService.BASE_URL}/decision`, {
+      projectId,
+      difficulty,
+    });
+    if (!response) {
+      throw new Error('Something went wrong.');
+    }
+
+    return response;
+  }
 }

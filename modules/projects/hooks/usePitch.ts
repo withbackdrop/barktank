@@ -3,11 +3,11 @@ import { useEffect, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
 import { ConversationLogActorEnum } from '@/models/ai/enums/ConversationLogActorEnum';
-import { deleteConversationLogByProjectId } from '@/models/ai/services/ConversationLogService';
+import { addToConversationLog } from '@/models/ai/services/ConversationLogService';
 import { DifficultyEnum } from '@/models/projects/enums/DifficultyEnum';
 import { PitchInternalApiService } from '@/models/projects/services/internalApi/PitchInternalApiService';
+import { useSessionContext } from '@/modules/application/contexts/SessionContext';
 import { notifyAboutError } from '@/modules/application/utils/notifyAboutError';
-import { PROBABILITY_PITCH_ACCEPT } from '@/modules/projects/components/PitchFlow/utils/constants';
 
 interface ConversationInterface {
   id: string;
@@ -17,20 +17,18 @@ interface ConversationInterface {
 }
 
 const usePitch = (projectId: string, difficulty: DifficultyEnum) => {
-  const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [willInvest, setWillInvest] = useState<boolean>(null);
-  const [isThinking, setIsThinking] = useState<boolean>(false);
+  const { user } = useSessionContext();
+
+  const [isThinking, setIsThinking] = useState<boolean>(true);
   const [conversations, setConversations] = useState<ConversationInterface[]>([]);
 
   useEffect(() => {
     (async () => {
-      await deleteConversationLogByProjectId(projectId);
-
       try {
         const pitchInternalService = new PitchInternalApiService(true);
         const response = await pitchInternalService.getPitchResponse(projectId, difficulty);
 
-        setIsLoading(false);
+        setIsThinking(false);
         setConversations((_conversations) => [
           ..._conversations,
           {
@@ -47,44 +45,15 @@ const usePitch = (projectId: string, difficulty: DifficultyEnum) => {
   }, []);
 
   const handleGetNextResponse = async (text) => {
+    await addToConversationLog(projectId, user.uid, ConversationLogActorEnum.USER, text);
+
     setConversations((_conversations) => [
       ..._conversations,
       { actor: ConversationLogActorEnum.USER, text, id: uuidv4() },
     ]);
-
-    setIsThinking(true);
-    try {
-      const pitchInternalService = new PitchInternalApiService(true);
-      const response = await pitchInternalService.getPitchResponse(projectId, difficulty, text);
-      if (response.decision) {
-        if (response.probability >= PROBABILITY_PITCH_ACCEPT) {
-          setWillInvest(true);
-          setIsThinking(false);
-          // @todo-phil set decision and use it
-          return;
-        }
-
-        setWillInvest(false);
-        setIsThinking(false);
-        return;
-      }
-
-      setIsThinking(false);
-      setConversations((_conversations) => [
-        ..._conversations,
-        {
-          actor: ConversationLogActorEnum.SYSTEM,
-          text: response.response,
-          probability: response.probability,
-          id: uuidv4(),
-        },
-      ]);
-    } catch (e) {
-      notifyAboutError(e, true, 'Something went wrong. Please try again.');
-    }
   };
 
-  return { conversations, isLoading, willInvest, isThinking, getResponse: handleGetNextResponse };
+  return { conversations, isThinking, getResponse: handleGetNextResponse };
 };
 
 export default usePitch;
