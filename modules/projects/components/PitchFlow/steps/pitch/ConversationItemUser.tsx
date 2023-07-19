@@ -8,7 +8,9 @@ const ConversationItemUser = ({ text }) => (
         {text}
       </Text>
     </div>
-    <Avatar size="l" alt="You" />
+    <span className="hidden md:block">
+      <Avatar size="l" alt="You" />
+    </span>
   </div>
 );
 
