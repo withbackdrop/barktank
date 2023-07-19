@@ -5,7 +5,7 @@ import SlowText from '@/modules/common/components/SlowText';
 import Heartbeat from './Heartbeat';
 
 const ConversationItemSystem = ({ text, probability, isLastAnswer }) => (
-  <div className="flex flex-col space-x-4 md:flex-row">
+  <div className="flex flex-col space-x-4 space-y-4 md:flex-row">
     <div className="flex flex-col items-center">
       <Avatar src={barkAvatar} size="l" alt="Bark" />
       {isLastAnswer && <Heartbeat probability={probability} />}
