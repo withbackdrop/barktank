@@ -29,6 +29,12 @@ const PitchFlowPitch = ({ flowData: { project, difficulty }, onAccept, onReject 
     );
   }
 
+  const canReply =
+    willInvest === null &&
+    conversations.length > 0 &&
+    conversations[conversations.length - 1].actor === ConversationLogActorEnum.SYSTEM &&
+    !isThinking;
+
   return (
     <Card elevation="l" isOverflowHidden={true}>
       <div className="flex flex-col space-y-8">
@@ -46,10 +52,7 @@ const PitchFlowPitch = ({ flowData: { project, difficulty }, onAccept, onReject 
             />
           );
         })}
-        {willInvest === null &&
-          conversations.length > 0 &&
-          conversations[conversations.length - 1].actor === ConversationLogActorEnum.SYSTEM &&
-          !isThinking && <PitchReplyForm onSubmit={getResponse} />}
+        {canReply && <PitchReplyForm onSubmit={getResponse} />}
         {isThinking && <ConversationItemThinking />}
       </div>
     </Card>
