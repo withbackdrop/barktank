@@ -28,8 +28,8 @@ export default async function IndexPage() {
   return (
     <ContentLayout>
       <ContentLayout.Content>
-        <div className="relative mx-auto w-full max-w-2xl overflow-hidden rounded-xl border-8 border-zinc-800 pt-8">
-          <Image src={bgEntrance} alt="Enter Bark Tank" />
+        <div className="relative mx-auto w-full max-w-2xl overflow-hidden rounded-xl border-8 border-zinc-800">
+          <Image src={bgEntrance} alt="Enter Bark Tank" priority={true} />
           <div className="absolute bottom-0 z-10 flex w-full flex-col items-center space-y-4 bg-zinc-900/40 px-24 py-6">
             <LoginButton />
             <Text textAlign="center" size="s" color="white">
