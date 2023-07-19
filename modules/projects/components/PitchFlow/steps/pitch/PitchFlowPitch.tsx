@@ -16,7 +16,9 @@ const PitchFlowPitch = ({ flowData: { project, difficulty }, onAccept, onReject 
   useEffect(() => {
     if (willInvest === true) {
       onAccept();
-    } else if (willInvest === false) onReject();
+    } else if (willInvest === false) {
+      onReject();
+    }
   }, [willInvest]);
 
   if (isLoading) {
