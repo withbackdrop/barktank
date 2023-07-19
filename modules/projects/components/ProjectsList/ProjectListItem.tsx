@@ -19,7 +19,7 @@ const ProjectListItem = ({ project }: { project: ProjectInterface }) => (
         Pitch this project
       </Button>
     ) : (
-      <Note color="yellow">Pitch limit exceeded</Note>
+      <Note color="yellow">You cannot pitch this project anymore</Note>
     )}
   </Card>
 );
