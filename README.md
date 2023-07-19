@@ -12,5 +12,6 @@ Finally run `yarn dev` to start it! Have fun!
 
 - NextJS
 - Firestore
-- Langchain
+- LangChain
+- Tailwind
 - OpenAI
