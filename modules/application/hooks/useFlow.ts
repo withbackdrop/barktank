@@ -10,10 +10,10 @@ interface UseFlow {
 
 const useFlow = ({ steps, initialStep, data }: UseFlow) => {
   const [currentStep, setCurrentStep] = useState<string>(initialStep);
-  const [flowData, setFlowData] = useState<any>(data || {});
+  const [flowData, setFlowData] = useState<any>({ ...data, currentStep } || { currentStep });
 
   const handleGoToStep = (nextStep, stepData) => {
-    setFlowData({ ...flowData, ...stepData });
+    setFlowData({ ...flowData, ...stepData, currentStep: nextStep });
     setCurrentStep(nextStep);
   };
 
