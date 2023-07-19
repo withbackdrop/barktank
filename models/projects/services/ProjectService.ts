@@ -8,6 +8,8 @@ import { ProjectInterface } from '@/models/projects/interfaces/ProjectInterface'
 
 const COLLECTION_NAME = 'projects';
 
+export const MAX_PROJECTS = 6;
+
 export async function createProject(
   userId: string,
   name: string,

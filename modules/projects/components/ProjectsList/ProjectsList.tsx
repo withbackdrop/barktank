@@ -1,5 +1,6 @@
 'use client';
 
+import { MAX_PROJECTS } from '@/models/projects/services/ProjectService';
 import { Heading } from '@/modules/application/components/DesignSystem/Elements';
 import { useSessionContext } from '@/modules/application/contexts/SessionContext';
 import Spinner from '@/modules/common/components/animations/Spinner';
@@ -25,7 +26,7 @@ const ProjectsList = () => {
           <CreateProject />
         </div>
       )}
-      {!isLoading && projects?.length === 0 && (
+      {!isLoading && projects?.length === 0 && projects?.length < MAX_PROJECTS && (
         <div className="flex items-center justify-center">
           <CreateProject />
         </div>
