@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import Confetti from 'canvas-confetti';
 import Image from 'next/image';
 
-import { Card, Text } from '@/modules/application/components/DesignSystem';
+import { Card } from '@/modules/application/components/DesignSystem';
 import ConversationItemSystem from '@/modules/projects/components/PitchFlow/steps/pitch/ConversationItemSystem';
 import ConversationItemThinking from '@/modules/projects/components/PitchFlow/steps/pitch/ConversationItemThinking';
 import { PROBABILITY_PITCH_ACCEPT } from '@/modules/projects/components/PitchFlow/utils/constants';
