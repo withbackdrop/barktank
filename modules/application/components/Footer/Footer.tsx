@@ -1,12 +1,10 @@
-import { format } from 'date-fns';
-
 import { Text } from '@/modules/application/components/DesignSystem';
 
 const Footer = () => (
   <div className="flex items-center justify-center space-x-2 p-5">
-    <Text color="gray-400" size="s">{`© ${format(new Date(), 'yyyy')} Bark Tank. `}</Text>
     <Text size="s" color="gray-400">
-      Built by Backdrop Labs.
+      Bark Tank is a silly little fun thing and not affiliated with Shark Tank or ABC. Built by nerds at Backdrop and
+      open source.
     </Text>
   </div>
 );
