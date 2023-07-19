@@ -3,12 +3,12 @@ import { DifficultyEnum } from '@/models/projects/enums/DifficultyEnum';
 function getDifficultyText(difficulty: DifficultyEnum) {
   switch (difficulty) {
     case DifficultyEnum.EASY:
-      return 'You should be easily convinced to invest at the end, meaning your probability to invest should always be above 70';
+      return 'You should be easily convinced to invest at the end. Probability to invest should be between 70 and 95. You are happy and positive.';
     case DifficultyEnum.NORMAL:
-      return 'You are not too hard to please. Your probability to invest will be in the range 50 to 100. You are more positive.';
+      return 'You are not too hard to please. Your probability to invest will be in the range 60 to 90. You are more positive.';
     case DifficultyEnum.HARD:
     default:
-      return 'You are hard to please. Your probability to invest should be always above 10 but only sometimes go above 80.';
+      return 'You are hard to please. Your probability to invest should be between 40 and 85. You are negative.';
   }
 }
 
