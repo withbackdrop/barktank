@@ -57,19 +57,31 @@ const PitchFlowDecision = ({ flowData: { project, difficulty } }: any) => {
         />
 
         {conversation.probability >= PROBABILITY_PITCH_ACCEPT && (
-          <div className="flex flex-col space-y-4">
-            <Text size="l">{conversation.price}</Text>
+          <ConversationItemSystem
+            text={`If you are open to it, I will invest ${conversation.price}!`}
+            probability={conversation.probability}
+            isLastAnswer={false}
+          />
+        )}
+
+        <div className="flex items-center justify-center">
+          {conversation.probability >= PROBABILITY_PITCH_ACCEPT && (
             <Image
               src={moneyGifs[Math.floor(Math.random() * moneyGifs.length)]}
               alt="You win!"
               width={500}
               height={500}
             />
-          </div>
-        )}
-        {conversation.probability < PROBABILITY_PITCH_ACCEPT && (
-          <Image src={sadGifs[Math.floor(Math.random() * moneyGifs.length)]} alt="You lose!" width={500} height={500} />
-        )}
+          )}
+          {conversation.probability < PROBABILITY_PITCH_ACCEPT && (
+            <Image
+              src={sadGifs[Math.floor(Math.random() * moneyGifs.length)]}
+              alt="You lose!"
+              width={500}
+              height={500}
+            />
+          )}
+        </div>
       </div>
     </Card>
   );
