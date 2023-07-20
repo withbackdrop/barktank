@@ -19,7 +19,6 @@ import {
   getTemplateInitial,
   getTemplateResponse,
 } from '@/models/ai/services/TemplateService';
-import { updateFirestoreCollectionDocumentById } from '@/models/application/services/FirestoreService';
 import { DifficultyEnum } from '@/models/projects/enums/DifficultyEnum';
 import { ProjectInterface } from '@/models/projects/interfaces/ProjectInterface';
 import { getProjectById, updateProjectById } from '@/models/projects/services/ProjectService';
