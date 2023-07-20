@@ -7,7 +7,9 @@ export function getOutputParserInitial() {
   return StructuredOutputParser.fromZodSchema(
     z
       .object({
-        response: z.string().describe('Feedback to the pitch followed by a critical question about the pitch.'),
+        response: z
+          .string()
+          .describe('Feedback to the pitch followed by a critical question about the pitch. Use dog puns!'),
         probability: z.number().describe('A probability to invest. Between 0 and 100.'),
       })
       .describe('Response and a probability to invest.')
@@ -18,7 +20,9 @@ export function getOutputParser() {
   return StructuredOutputParser.fromZodSchema(
     z
       .object({
-        response: z.string().describe('AI response to the users reply. Includes a further question for the user.'),
+        response: z
+          .string()
+          .describe('AI response to the users reply. Includes a further question for the user. Use dog puns!'),
         probability: z.number().describe('A probability to invest. Between 0 and 100.'),
       })
       .describe('Response and a probability to invest.')
@@ -44,12 +48,12 @@ export function getOutputParserFinal() {
 }
 
 export function getModel() {
-  return new OpenAI({ openAIApiKey: process.env.NEXT_OPEN_API_KEY, temperature: 0.7 });
+  return new OpenAI({ openAIApiKey: process.env.NEXT_OPEN_API_KEY, temperature: 0.7, modelName: 'gpt-4' });
 }
 
 export async function fixOutput(outputParser, result: string) {
   const fixParser = OutputFixingParser.fromLLM(
-    new ChatOpenAI({ openAIApiKey: process.env.NEXT_OPEN_API_KEY, temperature: 0 }),
+    new ChatOpenAI({ openAIApiKey: process.env.NEXT_OPEN_API_KEY, temperature: 0, modelName: 'gpt-4' }),
     outputParser
   );
   return fixParser.parse(result);
