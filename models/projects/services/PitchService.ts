@@ -23,7 +23,7 @@ import { DifficultyEnum } from '@/models/projects/enums/DifficultyEnum';
 import { ProjectInterface } from '@/models/projects/interfaces/ProjectInterface';
 import { getProjectById, updateProjectById } from '@/models/projects/services/ProjectService';
 
-async function getInitialPitchResponse(project: ProjectInterface, difficulty: DifficultyEnum) {
+async function getInitialPitchResponse(project: ProjectInterface, difficulty: DifficultyEnum): Promise<any> {
   const outputParser = getOutputParserInitial();
   const promptTemplate = new PromptTemplate({
     template: getTemplateInitial(difficulty),
@@ -52,7 +52,7 @@ async function getNextPitchResponse(
   difficulty: DifficultyEnum,
   text: string,
   conversationLog: ConversationLogInterface[]
-) {
+): Promise<any> {
   const outputParser = getOutputParser();
   const promptTemplate = new PromptTemplate({
     template: getTemplateResponse(difficulty),
@@ -94,11 +94,11 @@ export async function getPitchResponse(projectId: string, difficulty: Difficulty
       projectId,
       project.userId,
       ConversationLogActorEnum.SYSTEM,
-      response?.[0]?.response,
-      response?.[0]?.probability
+      response?.response,
+      response?.probability
     );
 
-    return response?.[0];
+    return response;
   }
 
   const response = await getNextPitchResponse(project, difficulty, lastReply, conversationLog);
@@ -107,14 +107,14 @@ export async function getPitchResponse(projectId: string, difficulty: Difficulty
     projectId,
     project.userId,
     ConversationLogActorEnum.SYSTEM,
-    response?.[0]?.response,
-    response?.[0]?.probability
+    response?.response,
+    response?.probability
   );
 
-  return response?.[0];
+  return response;
 }
 
-async function getPitchFinalDecision(project: ProjectInterface, difficulty: DifficultyEnum) {
+async function getPitchFinalDecision(project: ProjectInterface, difficulty: DifficultyEnum): Promise<any> {
   const conversationLogString = await getConversationLogString(project.id);
   const conversationLog = await getConversationLogsByProjectId(project.id);
 
@@ -163,11 +163,11 @@ export async function getPitchDecision(projectId: string, difficulty: Difficulty
     projectId,
     project.userId,
     ConversationLogActorEnum.SYSTEM,
-    response?.[0]?.decision,
-    response?.[0]?.probability
+    response?.decision,
+    response?.probability
   );
 
   await updateProjectById(project.id, { roundsPlayed: project.roundsPlayed++ });
 
-  return response?.[0];
+  return response;
 }
