@@ -1,6 +1,6 @@
 import barkAvatar from '@/images/bark-avatar-angry.png';
 import { Avatar, Text } from '@/modules/application/components/DesignSystem';
-import Spinner from '@/modules/common/components/animations/Spinner';
+import BouncingDots from '@/modules/common/components/animations/BouncingDots';
 
 const ConversationItemThinking = ({ text = 'Mmmm...' }) => (
   <div className="mb-16 flex space-x-4">
@@ -10,7 +10,7 @@ const ConversationItemThinking = ({ text = 'Mmmm...' }) => (
         <strong>Bark: </strong>
         <span className="mb-4 text-zinc-900">{text}</span>
       </Text>
-      <Spinner size="s" align="left" />
+      <BouncingDots size="s" />
     </div>
   </div>
 );
