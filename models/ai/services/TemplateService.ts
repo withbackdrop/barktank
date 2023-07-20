@@ -64,7 +64,7 @@ export function getTemplateResponse(difficulty: DifficultyEnum) {
 }
 
 export function getTemplateFinalDecision(difficulty: DifficultyEnum, averageProbability: number) {
-  if (averageProbability >= 75) {
+  if (averageProbability >= 80) {
     return `
          CONTEXT: Project name: {projectName}. Pitch transcript: {transcript}\n\n
         
